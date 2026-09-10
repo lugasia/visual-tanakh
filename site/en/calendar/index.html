@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html dir="ltr" lang="en">
+<head>
+
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://lugasia.github.io/visual-tanakh/en/calendar/">
+<link rel="alternate" hreflang="he" href="https://lugasia.github.io/visual-tanakh/en/calendar/">
+<link rel="alternate" hreflang="en" href="https://lugasia.github.io/visual-tanakh/en/calendar/">
+<link rel="alternate" hreflang="x-default" href="https://lugasia.github.io/visual-tanakh/en/calendar/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tanakh Atlas">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://lugasia.github.io/visual-tanakh/en/calendar/">
+<meta property="og:title" content="354 days in the year. And the months have no names.">
+<meta property="og:description" content="A lunar year wheel showing the moon phase on every day, three systems of month names, and every festival traced to its source.">
+<meta property="og:image" content="https://lugasia.github.io/visual-tanakh/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="354 days in the year. And the months have no names.">
+<meta name="twitter:description" content="A lunar year wheel, the month names, and every festival traced to its source.">
+<meta name="twitter:image" content="https://lugasia.github.io/visual-tanakh/assets/og-en.png">
+<meta name="theme-color" content="#15384b">
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>The Calendar of the Hebrew Bible</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&amp;family=Heebo:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#F4F3EF; --card:#FFF; --ink:#181B21; --ink2:#5A6270; --rule:#D8D6CE;
+  --torah:#1D4F91; --nvi:#C2521F; --moon:#9A7B12; --agri:#2F7D5C; --none:#8A8FA0;
+  --night:#141A26;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Heebo",-apple-system,"Arial Hebrew",system-ui,sans-serif;font-size:17px;line-height:1.65}
+h1,h2,h3{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;line-height:1.15;margin:0;font-weight:700}
+p{margin:0 0 1em}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+.num{font-variant-numeric:tabular-nums}
+.mast{padding:56px 0 30px}
+.mast h1{font-size:clamp(40px,8vw,74px);font-weight:900;letter-spacing:-.015em}
+.mast .sub{font-size:clamp(17px,2.3vw,21px);color:var(--ink2);max-width:58ch;margin-top:12px}
+section{padding:44px 0;border-top:1px solid var(--rule)}
+section>h2{font-size:clamp(25px,4vw,35px);margin-bottom:8px}
+section>.lede{color:var(--ink2);max-width:64ch;margin-bottom:24px}
+
+.ctl{font-family:"Heebo";font-size:14.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:8px 14px;cursor:pointer;color:var(--ink)}
+.ctl[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ctl:focus-visible{outline:2px solid var(--moon);outline-offset:2px}
+.controls{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px;align-items:center}
+.controls .grp{display:flex;gap:6px;border:1px solid var(--rule);border-radius:6px;padding:4px;background:#fff}
+.controls .grp .ctl{border:0;padding:6px 12px}
+
+/* wheel */
+.wheelbox{background:var(--night);border-radius:8px;padding:10px}
+svg.wheel{display:block;width:100%;height:auto;font-family:"Heebo"}
+svg.wheel text{fill:#EDEAE0}
+svg.wheel .mn{font-size:17px;font-weight:500}
+svg.wheel .mn2{font-size:12.5px;fill:#9AA3B2}
+svg.wheel .hub1{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:52px;font-weight:900;fill:#EDEAE0}
+svg.wheel .hub2{font-size:14px;fill:#9AA3B2}
+svg.wheel .fmark{cursor:pointer}
+svg.wheel .fmark:hover circle.fd,svg.wheel .fmark.sel circle.fd{r:11}
+svg.wheel .fmark:focus{outline:none}
+svg.wheel .fmark:focus circle.fd{stroke:#fff;stroke-width:2}
+svg.wheel .agtxt{font-size:11.5px;fill:#7FBFA4}
+.readout{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:20px;margin-top:14px;min-height:120px}
+.readout h3{font-size:23px;margin-bottom:2px}
+.readout .dt{color:var(--moon);font-weight:600;font-size:15px;margin-bottom:10px}
+.readout .src{font-size:13.5px;color:var(--ink2);margin-top:10px;padding-top:10px;border-top:1px solid var(--rule)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--ink2);margin-top:14px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-inline-end:6px;vertical-align:-1px}
+
+/* month strip */
+.strip{background:var(--night);border-radius:8px;padding:18px 14px}
+svg.mstrip{display:block;width:100%;height:auto}
+svg.mstrip text{fill:#9AA3B2;font-family:"Heebo";font-size:11px}
+svg.mstrip text.big{fill:#EDEAE0;font-size:13px;font-weight:500}
+
+/* tables */
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+th{text-align:start;font-size:13.5px;font-weight:600;color:var(--ink2);padding:11px 10px;background:#FAF9F6;border-bottom:2px solid var(--rule)}
+td{padding:9px 10px;border-bottom:1px solid var(--rule);font-size:15.5px}
+tr:last-child td{border-bottom:0}
+td.no{color:var(--none)}
+td.yes{color:var(--torah);font-weight:500}
+td .ref{display:block;font-size:12.5px;color:var(--ink2);font-weight:400}
+
+/* festival list */
+.flist{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.fitem{background:var(--card);padding:16px 18px;display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:start}
+.fitem .when{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:19px;font-weight:700;color:var(--torah)}
+.fitem.nvi .when{color:var(--nvi)}
+.fitem .when small{display:block;font-family:"Heebo";font-size:12.5px;font-weight:400;color:var(--ink2);margin-top:2px}
+.fitem h3{font-size:20px;margin-bottom:4px}
+.fitem p{font-size:15.5px;margin:0;color:var(--ink2)}
+.fitem .src{font-size:13px;color:var(--ink2);margin-top:7px}
+.fitem.hide{display:none}
+
+/* disputes */
+.disp{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.disp>div{background:var(--card);padding:18px}
+.disp h3{font-size:20px;margin-bottom:6px}
+.disp p{font-size:15.5px;color:var(--ink2);margin:0}
+.disp .src{font-size:13px;color:var(--ink2);margin-top:8px}
+
+/* jubilee */
+.jub{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;max-width:560px}
+.jub button{aspect-ratio:1;border:1px solid var(--rule);background:#fff;border-radius:4px;font-family:"Heebo";font-size:13px;cursor:pointer;color:var(--ink2);padding:0}
+.jub button.sh{background:#E7F1EB;border-color:var(--agri);color:var(--agri);font-weight:600}
+.jub button.jb{background:var(--moon);border-color:var(--moon);color:#fff;font-weight:700}
+.jub button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.jubout{margin-top:14px;font-size:15.5px;color:var(--ink2);min-height:48px}
+.jubout b{color:var(--ink)}
+
+footer{padding:40px 0 64px;border-top:1px solid var(--rule);font-size:15px;color:var(--ink2)}
+footer h3{font-size:20px;color:var(--ink);margin-bottom:12px}
+footer li{margin-bottom:9px;max-width:72ch}
+@media(max-width:640px){
+  body{font-size:16px}
+  .fitem{grid-template-columns:1fr;gap:6px}
+  td,th{padding:8px 7px;font-size:14.5px}
+  .jub{grid-template-columns:repeat(5,1fr)}
+  svg.wheel .mn{font-size:22px}
+  svg.wheel .mn2{font-size:16px}
+  svg.wheel .agtxt{display:none}
+}
+</style>
+<style>.atlas-nav{display:flex;flex-wrap:wrap;gap:12px 24px;padding:16px max(20px,calc((100% - 1020px)/2));border-bottom:1px solid #D8D6CE;font:14px Heebo,Arial,sans-serif;background:#F4F3EF}.atlas-nav a{color:#181B21;text-decoration:none}.atlas-nav a:first-child{font-weight:700;margin-inline-end:auto}.atlas-nav a:hover{text-decoration:underline}.atlas-draft{padding:8px 20px;background:#eee8db;color:#514831;text-align:center;font:13px Heebo,Arial,sans-serif}</style><link href="../../assets/atlas.css" rel="stylesheet"/><link href="../../assets/logo-96.png" rel="icon" type="image/png"/><script defer="" src="../../assets/atlas.js"></script><link href="../../assets/share.css" rel="stylesheet"/>
+</head>
+<body class="chapter-page chapter-calendar"><a class="skip-link" href="#main-content">Skip to content</a><div class="mobile-bar"><a href="../../en/"><img alt="" height="44" src="../../assets/logo-96.png" width="44"/><span>Tanakh Atlas</span></a><button aria-controls="atlas-sidebar" aria-expanded="false" aria-label="Open navigation" id="menu-toggle"><span></span><span></span><span></span></button></div><div hidden="" id="nav-backdrop"></div><aside aria-label="Main navigation" class="atlas-sidebar" id="atlas-sidebar"><div class="sidebar-top"><a class="atlas-brand" href="../../en/"><img alt="" height="130" src="../../assets/logo-320.png" width="150"/><strong>Tanakh Atlas</strong><span>MAPS · CHARTS · SOURCES</span></a><button aria-label="Close navigation" class="nav-close" id="nav-close">×</button></div><nav aria-label="Collection chapters" class="library-nav"><p class="nav-caption">THE COLLECTION</p><a class="side-link" href="../../en/"><span class="side-index">⌂</span><span>The collection</span></a><a aria-current="page" class="side-link" href="../../en/calendar/"><span class="side-index">01</span><span>The calendar</span></a><a class="side-link" href="../../en/treasures/"><span class="side-index">02</span><span>The treasures</span></a><a class="side-link" href="../../en/return/"><span class="side-index">03</span><span>Return to Zion</span></a></nav><nav aria-label="Table of contents" class="chapter-toc"><p class="nav-caption">IN THIS CHAPTER</p><a class="toc-link" href="#section-1">The year wheel</a><a class="toc-link" href="#section-2">How a month was fixed</a><a class="toc-link" href="#section-3">The month names</a><a class="toc-link" href="#section-4">The festivals</a><a class="toc-link" href="#section-5">What is disputed</a><a class="toc-link" href="#section-6">The long cycle — sabbatical and jubilee</a><a class="toc-link" href="#chapter-notes">Notes and sources</a></nav><div class="sidebar-bottom"><a class="language-link" href="../../he/calendar/" lang="he">עברית<span aria-hidden="true">↗</span></a><p class="copyright">© 2026 Amir Lugasi. All rights reserved.</p></div></aside>
+<main class="wrap atlas-main" id="main-content">
+<header class="mast"><p class="chapter-eyebrow">01 / TIME &amp; CYCLES</p>
+<h1>The Calendar of the Hebrew Bible</h1>
+<p class="sub">A lunar year of 354 days, forced to keep step with the farming seasons. Months with no names, two new years, and festivals that mostly fall exactly on a new moon or a full one.</p>
+</header>
+<section data-section="01" id="section-1">
+<h2>The year wheel</h2>
+<p class="lede">The outer ring is the phase of the moon on each of the 354 days of the year — twelve cycles of waxing and waning. Select a festival marker to read about it.</p>
+<div class="controls">
+<div aria-label="System of month names" class="grp" role="group">
+<button aria-pressed="true" class="ctl" data-nm="num">Numbers · the Torah</button>
+<button aria-pressed="false" class="ctl" data-nm="can">Canaanite names · Kings</button>
+<button aria-pressed="false" class="ctl" data-nm="bab">Babylonian names · the return</button>
+</div>
+<button aria-pressed="false" class="ctl" id="leap">Add a leap month</button>
+<button aria-pressed="true" class="ctl" id="agri">Farming ring</button>
+</div>
+<div class="calendar-workspace"><div class="wheelbox"><svg aria-label="Wheel of the biblical calendar year" class="wheel" id="wheel" role="img"></svg></div><div class="calendar-detail"><div class="readout" id="readout"></div><div class="legend">
+<span><i style="background:#1D4F91"></i>Festival from the Torah</span>
+<span><i style="background:#C2521F"></i>Festival or fast from the Prophets and Writings</span>
+<span><i style="background:#9A7B12"></i>New moon</span>
+<span><i style="background:#7FBFA4"></i>Farming season</span>
+</div></div></div>
+
+
+</section>
+<section data-section="02" id="section-2">
+<h2>How a month was fixed</h2>
+<p class="lede">The lunar cycle runs twenty-nine and a half days. Since a day cannot be split, a month is either 29 or 30 — and the decision was made by eye, on sighting the first crescent. That is why Saul's "tomorrow is the new moon" ran to two days: nobody knew in advance which of them it would be.</p>
+<div class="strip"><svg aria-label="Phases of the moon across a month" class="mstrip" id="mstrip" role="img"></svg></div>
+<p class="lede" style="margin-top:18px;margin-bottom:0">Notice what falls where: <b>the Day of Acclamation</b> on the first of the month — new moon, an invisible disc. <b>Passover</b> and <b>Tabernacles</b> on the fifteenth — full moon, a lit night for pilgrims. Psalm 81 puts both in one breath: "Blow the horn at the new moon, at the full moon for our feast day."</p>
+</section>
+<section data-section="03" id="section-3">
+<h2>The month names</h2>
+<p class="lede">In the Torah the months have no names at all — only numbers. Four Canaanite names survive in the book of Kings. The names in use today are Babylonian, and they entered only after the exile — and even then, only seven of the twelve appear in the Hebrew Bible at all.</p>
+<div aria-label="Data table — scrolls sideways" class="table-scroll" role="region" tabindex="0"><table>
+<thead><tr><th>Number</th><th>Canaanite name</th><th>Babylonian name</th><th>In the Hebrew Bible?</th></tr></thead>
+<tbody id="monthtab"></tbody>
+</table></div>
+</section>
+<section data-section="04" id="section-4">
+<h2>The festivals</h2>
+<p class="lede">Every festival and fast with a source in the Hebrew Bible, in the order of the year.</p>
+<div class="controls">
+<button aria-pressed="true" class="ctl fl" data-f="all">All</button>
+<button aria-pressed="false" class="ctl fl" data-f="torah">From the Torah</button>
+<button aria-pressed="false" class="ctl fl" data-f="nvi">From the Prophets and Writings</button>
+<button aria-pressed="false" class="ctl fl" data-f="fast">Fasts</button>
+</div>
+<div class="flist" id="flist"></div>
+</section>
+<section data-section="05" id="section-5">
+<h2>What is disputed</h2>
+<p class="lede">The biblical calendar is not one consistent document. Points where the texts disagree with each other, or say nothing at all.</p>
+<div class="disp">
+<div>
+<h3>"On the day after the sabbath" — when the count begins</h3>
+<p>The waving of the omer is set "on the day after the sabbath". If "the sabbath" is the first festival day of Passover, the count begins on the sixteenth of Nisan and Weeks always falls on the sixth of Sivan — this was the practice of the Pharisees and the ruling that became law. If "the sabbath" is an ordinary Saturday, the count always begins on a Sunday and Weeks always falls on a Sunday — this was the reading of the Boethusians, and it is what Karaites and Samaritans follow to this day. The verse itself does not settle it.</p>
+<p class="src">Leviticus 23:11–16</p>
+</div>
+<div>
+<h3>The seventh of Av, or the tenth</h3>
+<p>2 Kings dates the burning of the Temple to the seventh of the fifth month. Jeremiah, describing that same event, dates it to the tenth. The two dates cannot both stand, and neither of them is the Ninth of Av that was later fixed.</p>
+<p class="src">2 Kings 25:8 · Jeremiah 52:12</p>
+</div>
+<div>
+<h3>Ezekiel's festival calendar</h3>
+<p>The vision of the future Temple carries a different festival calendar: purification of the sanctuary on the first of Nisan and again on the seventh, Passover on the fourteenth, and a seven-day festival on the fifteenth of the seventh month. It has no Day of Atonement, no Weeks, and no Eighth Day of Assembly. The rabbis wrestled with the discrepancy, and tradition holds that they considered suppressing the book because of it.</p>
+<p class="src">Ezekiel 45:18–25</p>
+</div>
+<div>
+<h3>Two new years</h3>
+<p>Nisan is "the first of months", and the festivals and regnal years are counted by it. But the farming year closes with the ingathering in the seventh month — "at the going out of the year", "at the turn of the year" — and that same month holds the Day of Acclamation, the Day of Atonement and the opening of the jubilee year. The two systems run in parallel throughout the Hebrew Bible.</p>
+<p class="src">Exodus 12:2 · Exodus 23:16 · Exodus 34:22 · Leviticus 25:9</p>
+</div>
+<div>
+<h3>And what is not in the Hebrew Bible at all</h3>
+<p>Hanukkah appears in no book of the Hebrew Bible — it comes from the books of Maccabees, which did not enter the canon. Nor are Tu BiShvat, Lag BaOmer or the Seventeenth of Tammuz as a date. Purim is the exception — the only festival instituted inside the Hebrew Bible itself, in the book of Esther, and not at Sinai.</p>
+<p class="src">Esther 9:20–32</p>
+</div>
+</div>
+</section>
+<section data-section="06" id="section-6">
+<h2>The long cycle — sabbatical and jubilee</h2>
+<p class="lede">Above the lunar year runs a long cycle of fifty years. Select a year.</p>
+<div class="jub" id="jub"></div>
+<p class="jubout" id="jubout">Every seventh year — a sabbatical. The fiftieth year — a jubilee.</p>
+</section>
+<div class="share-block" data-hook="354 days in the year. And in the Torah the months have no names at all."></div>
+
+<footer id="chapter-notes">
+<h3>Notes</h3>
+<ul>
+<li>The synodic month is 29.53 days, so a year of twelve months is about 354 days — some 11 days shorter than the solar year. The Torah requires Passover to fall in "the month of Aviv", which means intercalation is necessary, yet the Hebrew Bible describes no mechanism for deciding it. The fixed nineteen-year intercalation cycle is Babylonian in origin and was settled far later.</li>
+<li>The farming ring is based on the Gezer Calendar, a Hebrew inscription from the tenth century BCE — an archaeological source, not a biblical one. Lining it up with the calendar months is a commonly accepted scholarly reconstruction, not something the inscription states.</li>
+<li>The date of the Fast of Gedaliah does not appear in the text — Jeremiah says only "in the seventh month". Its position on the wheel follows the later tradition.</li>
+<li>The biblical day begins at evening, as the Day of Atonement command spells out: "From evening to evening you shall keep your sabbath."</li>
+</ul>
+</footer>
+</main>
+<script>
+const SYN=29.530588;
+const months=[
+ {num:"The first",can:"Aviv",bab:"Nisan",canRef:"Exodus 13:4",inT:"Esther 3:7 · Nehemiah 2:1"},
+ {num:"The second",can:"Ziv",bab:"Iyar",canRef:"1 Kings 6:1",inT:null},
+ {num:"The third",can:null,bab:"Sivan",inT:"Esther 8:9"},
+ {num:"The fourth",can:null,bab:"Tammuz",inT:null,note:"the name appears in Ezekiel 8:14 — but as the name of a god, not a month"},
+ {num:"The fifth",can:null,bab:"Av",inT:null},
+ {num:"The sixth",can:null,bab:"Elul",inT:"Nehemiah 6:15"},
+ {num:"The seventh",can:"Ethanim",bab:"Tishrei",canRef:"1 Kings 8:2",inT:null},
+ {num:"The eighth",can:"Bul",bab:"Heshvan",canRef:"1 Kings 6:38",inT:null},
+ {num:"The ninth",can:null,bab:"Kislev",inT:"Nehemiah 1:1 · Zechariah 7:1"},
+ {num:"The tenth",can:null,bab:"Tevet",inT:"Esther 2:16"},
+ {num:"The eleventh",can:null,bab:"Shevat",inT:"Zechariah 1:7"},
+ {num:"The twelfth",can:null,bab:"Adar",inT:"Esther 3:7 · Ezra 6:15"}
+];
+const agri=["flax harvest","barley harvest","harvest and measure","vine pruning","vine pruning","summer fruit","ingathering","ingathering","sowing","sowing","late planting","late planting"];
+
+const fests=[
+ {m:1,d:1,n:"The first of months",cat:"torah",when:"1 Nisan",
+  t:"“This month shall be for you the beginning of months; it is the first month of the year for you.” The zero point of the calendar, fixed at the exodus from Egypt.",src:"Exodus 12:2"},
+ {m:1,d:14,n:"Passover",cat:"torah",when:"14 Nisan",
+  t:"The paschal offering is slaughtered at twilight, on an evening when the moon is nearly full. The only one of the festivals fixed to a single day rather than a span of days.",src:"Exodus 12 · Leviticus 23:5 · Numbers 28:16"},
+ {m:1,d:15,n:"Unleavened Bread",cat:"torah",when:"15–21 Nisan",
+  t:"Seven days, holding two sacred assemblies — on the first day and on the seventh. One of the three pilgrimage festivals.",src:"Leviticus 23:6–8 · Deuteronomy 16:1–8"},
+ {m:1,d:16,n:"The waving of the omer",cat:"torah",when:"16 Nisan · “the day after the sabbath”",
+  t:"The beginning of the barley harvest. From this day fifty are counted to Weeks. When the count opens is one of the oldest disputes in the Hebrew Bible.",src:"Leviticus 23:10–16"},
+ {m:2,d:14,n:"Second Passover",cat:"torah",when:"14 Iyar",
+  t:"A make-up date for anyone who was ritually unclean or far away and could not bring the offering on time. It was instituted after a petition from men who had been excluded — one of the few cases where a law is enacted in answer to a question.",src:"Numbers 9:6–14"},
+ {m:3,d:6,n:"Weeks",cat:"torah",when:"day 50 of the count · 6 Sivan",
+  t:"The harvest festival, the day of first fruits. The only festival with no date of its own — it is the result of a count. Two loaves from the new wheat. The Torah does not connect it to the giving of the law.",src:"Leviticus 23:15–21 · Exodus 23:16 · Deuteronomy 16:9–12"},
+ {m:4,d:9,n:"The fast of the fourth month",cat:"fast",when:"9 Tammuz",
+  t:"The day the wall of Jerusalem was breached in the days of Zedekiah. Zechariah counts it as one of four fasts, and promises that they will all turn into “joy and gladness and cheerful feasts”.",src:"2 Kings 25:3 · Jeremiah 39:2 · Zechariah 8:19"},
+ {m:5,d:9,n:"The fast of the fifth month",cat:"fast",when:"7 or 10 Av",
+  t:"The destruction of the First Temple. Kings reads the seventh of the month, Jeremiah the tenth — for the very same event. The Ninth of Av that was fixed later is neither of them.",src:"2 Kings 25:8 · Jeremiah 52:12 · Zechariah 8:19"},
+ {m:7,d:1,n:"The Day of Acclamation",cat:"torah",when:"1 Tishrei",
+  t:"“A day of rest, a memorial of acclamation, a sacred assembly.” The Torah does not call it a new year and does not explain what the horn is blown for. It falls on the new moon — the one day of the month when the moon cannot be seen at all.",src:"Leviticus 23:23–25 · Numbers 29:1–6"},
+ {m:7,d:3,n:"The fast of the seventh month",cat:"fast",when:"in the seventh month",
+  t:"The murder of Gedaliah son of Ahikam at Mizpah, and the end of the Judean remnant in the land after the destruction. Jeremiah says “in the seventh month” and names no day.",src:"Jeremiah 41:1–3 · Zechariah 8:19"},
+ {m:7,d:10,n:"The Day of Atonement",cat:"torah",when:"10 Tishrei",
+  t:"The one day of the year the high priest enters the innermost sanctuary. Two goats, one for the Lord and one for Azazel. And in a jubilee year — from this day the horn sounds and the land returns to its original owners.",src:"Leviticus 16 · Leviticus 23:26–32 · Leviticus 25:9"},
+ {m:7,d:15,n:"Tabernacles",cat:"torah",when:"15–21 Tishrei",
+  t:"The festival of ingathering, at full moon, at the close of the farming year. Seven days in booths, and the four species. The third pilgrimage festival, and the most elaborately specified of all in its offerings.",src:"Leviticus 23:33–43 · Deuteronomy 16:13–15"},
+ {m:7,d:22,n:"The Eighth Day of Assembly",cat:"torah",when:"22 Tishrei",
+  t:"A separate eighth day, after the seven days of Tabernacles. “It is a solemn assembly; you shall do no laborious work.”",src:"Leviticus 23:36 · Numbers 29:35"},
+ {m:7,d:16,n:"The Assembly",cat:"torah",when:"at Tabernacles, once in seven years",
+  t:"At the close of the sabbatical year, at the festival of Tabernacles, the whole people gathered — men, women, children and the resident alien — to hear the law read by the king. The only observance on a seven-year cycle.",src:"Deuteronomy 31:10–13"},
+ {m:10,d:10,n:"The fast of the tenth month",cat:"fast",when:"10 Tevet",
+  t:"The day Nebuchadnezzar laid siege to Jerusalem. Ezekiel, sitting in exile, is commanded to write down the date on that very day — before the news could possibly have reached him.",src:"2 Kings 25:1 · Ezekiel 24:1–2 · Zechariah 8:19"},
+ {m:12,d:14,n:"Purim",cat:"nvi",when:"14–15 Adar",
+  t:"The only festival in the Hebrew Bible instituted by people rather than commanded at Sinai — “the Jews took it upon themselves”. The fourteenth in unwalled towns, the fifteenth in Susa and in walled cities.",src:"Esther 9:20–32"}
+];
+const shabbat={n:"The Sabbath",cat:"torah",when:"every seventh day",
+ t:"The one observance that depends on neither moon nor sun nor season — a seven-day cycle running unbroken from creation, synchronised with no heavenly body at all. Leviticus 23 opens its list of festivals with precisely this.",
+ src:"Genesis 2:1–3 · Exodus 20:8–11 · Leviticus 23:3"};
+const rosh={n:"New moon",cat:"moon",when:"the first of every month",
+ t:"A marked day in its own right, with an additional offering of its own. In the days of Saul and David a feast was held on it over two days — because nobody knew in advance whether the previous month would run 29 days or 30. The prophets name it in the same breath as the Sabbath.",
+ src:"Numbers 28:11–15 · 1 Samuel 20:5–27 · Isaiah 1:13–14 · Amos 8:5"};
+
+/* ---------- month names table ---------- */
+document.getElementById("monthtab").innerHTML=months.map((m,i)=>`
+ <tr>
+   <td>${m.num}<span class="ref">month ${i+1}</span></td>
+   <td>${m.can?`${m.can}<span class="ref">${m.canRef}</span>`:"<span style='color:var(--none)'>—</span>"}</td>
+   <td>${m.bab}</td>
+   <td class="${m.inT?"yes":"no"}">${m.inT?`Yes<span class="ref">${m.inT}</span>`:`No<span class="ref">${m.note||"does not appear in the Hebrew Bible"}</span>`}</td>
+ </tr>`).join("");
+
+/* ---------- wheel ---------- */
+let naming="num", leap=false, showAgri=true, sel=null;
+const C=430, R_TICK_IN=322, R_TICK_MAX=30, R_MON_OUT=306, R_MON_IN=252, R_AG_OUT=244, R_AG_IN=198, R_FEST=176;
+const pol=(r,a)=>[C+r*Math.cos(a),C+r*Math.sin(a)];
+const ang=(i,N)=>(-90+i/N*360)*Math.PI/180;
+
+function monthLabel(i){
+  if(naming==="num") return months[i].num;
+  if(naming==="can") return months[i].can||months[i].num;
+  return months[i].bab;
+}
+function subLabel(i){
+  if(naming==="num") return months[i].bab;
+  if(naming==="can") return months[i].can?months[i].num:"no Canaanite name";
+  return months[i].num;
+}
+function arcPath(r1,r2,a1,a2){
+  const [x1,y1]=pol(r2,a1),[x2,y2]=pol(r2,a2),[x3,y3]=pol(r1,a2),[x4,y4]=pol(r1,a1);
+  const laf=(a2-a1)>Math.PI?1:0;
+  return `M${x1},${y1} A${r2},${r2} 0 ${laf},1 ${x2},${y2} L${x3},${y3} A${r1},${r1} 0 ${laf},0 ${x4},${y4} Z`;
+}
+function drawWheel(){
+  const MN=leap?13:12;
+  const bounds=[];let acc=0;
+  for(let i=0;i<MN;i++){bounds.push(acc);acc+=(i%2===0?30:29);}
+  const N=acc;
+  let s="";
+  // moon ticks
+  for(let d=0;d<N;d++){
+    const ph=(d%SYN)/SYN, illum=(1-Math.cos(2*Math.PI*ph))/2;
+    const a=ang(d+0.5,N), h=3+R_TICK_MAX*illum;
+    const [x1,y1]=pol(R_TICK_IN,a),[x2,y2]=pol(R_TICK_IN+h,a);
+    s+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#C9A83B" stroke-opacity="${(0.18+0.82*illum).toFixed(2)}" stroke-width="2.4"/>`;
+  }
+  // month sectors
+  for(let i=0;i<MN;i++){
+    const st=bounds[i], en=(i===MN-1?N:bounds[i+1]);
+    const a1=ang(st,N),a2=ang(en,N);
+    const isLeapM=leap&&i===12;
+    s+=`<path d="${arcPath(R_MON_IN,R_MON_OUT,a1,a2)}" fill="${isLeapM?"#3A3320":(i%2?"#1D2333":"#222A3C")}" stroke="#0E121C" stroke-width="1.5"/>`;
+    const am=(a1+a2)/2;
+    const [tx,ty]=pol((R_MON_IN+R_MON_OUT)/2,am);
+    let deg=am*180/Math.PI+90; if(deg>90&&deg<270)deg-=180;
+    const nm=isLeapM?"The leap month":monthLabel(i);
+    const sb=isLeapM?"not described in the Hebrew Bible":subLabel(i);
+    s+=`<g transform="translate(${tx.toFixed(1)},${ty.toFixed(1)}) rotate(${deg.toFixed(1)})">
+        <text class="mn" text-anchor="middle" y="-3">${nm}</text>
+        <text class="mn2" text-anchor="middle" y="14">${sb}</text></g>`;
+    // agri ring
+    if(showAgri&&!isLeapM){
+      s+=`<path d="${arcPath(R_AG_IN,R_AG_OUT,a1,a2)}" fill="#16271F" stroke="#0E121C" stroke-width="1.5"/>`;
+      const [ax,ay]=pol((R_AG_IN+R_AG_OUT)/2,am);
+      s+=`<g transform="translate(${ax.toFixed(1)},${ay.toFixed(1)}) rotate(${deg.toFixed(1)})">
+          <text class="agtxt" text-anchor="middle" y="4">${agri[i]}</text></g>`;
+    }
+    // rosh chodesh
+    if(!isLeapM){
+      const ar=ang(st+0.5,N);
+      const [rx,ry]=pol(R_FEST+8,ar);
+      s+=`<g class="fmark" data-k="rosh" tabindex="0" role="button" aria-label="New moon">
+          <circle cx="${rx.toFixed(1)}" cy="${ry.toFixed(1)}" r="4.5" fill="#9A7B12"/></g>`;
+    }
+  }
+  // festivals
+  fests.forEach((f,idx)=>{
+    if(f.m-1>=MN)return;
+    const day=bounds[f.m-1]+f.d-1;
+    const a=ang(day+0.5,N);
+    const [x1,y1]=pol(R_FEST,a),[x2,y2]=pol(R_AG_IN-4,a);
+    const col=f.cat==="torah"?"#3D7FD1":"#E0703C";
+    s+=`<g class="fmark${sel===idx?" sel":""}" data-f="${idx}" tabindex="0" role="button" aria-label="${f.n}">
+        <line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${col}" stroke-width="2"/>
+        <circle class="fd" cx="${x1.toFixed(1)}" cy="${y1.toFixed(1)}" r="${sel===idx?11:8}" fill="${col}"/>
+        </g>`;
+  });
+  // hub
+  s+=`<circle cx="${C}" cy="${C}" r="${R_FEST-26}" fill="#0E121C" stroke="#2A3348"/>
+      <text class="hub1" x="${C}" y="${C-4}" text-anchor="middle">${N}</text>
+      <text class="hub2" x="${C}" y="${C+22}" text-anchor="middle">days · ${MN} months</text>
+      <text class="hub2" x="${C}" y="${C+44}" text-anchor="middle">${leap?"a leap year":"about 11 days short of the solar year"}</text>`;
+  const w=document.getElementById("wheel");
+  w.setAttribute("viewBox","0 0 860 860");
+  w.innerHTML=s;
+  w.querySelectorAll(".fmark").forEach(g=>{
+    const act=()=>{
+      if(g.dataset.k==="rosh"){sel=null;showRead(rosh);}
+      else{sel=+g.dataset.f;showRead(fests[sel]);}
+      drawWheel();
+    };
+    g.addEventListener("click",act);
+    g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();act();}});
+  });
+}
+function showRead(f){
+  document.getElementById("readout").innerHTML=
+    `<h3>${f.n}</h3><div class="dt">${f.when}</div><p style="margin:0">${f.t}</p><div class="src">${f.src}</div>`;
+}
+showRead(shabbat);
+document.querySelectorAll("[data-nm]").forEach(b=>b.onclick=()=>{
+  naming=b.dataset.nm;
+  document.querySelectorAll("[data-nm]").forEach(o=>o.setAttribute("aria-pressed",o===b));
+  drawWheel();
+});
+document.getElementById("leap").onclick=e=>{leap=!leap;e.currentTarget.setAttribute("aria-pressed",leap);drawWheel();};
+document.getElementById("agri").onclick=e=>{showAgri=!showAgri;e.currentTarget.setAttribute("aria-pressed",showAgri);drawWheel();};
+drawWheel();
+
+/* ---------- month strip ---------- */
+(function(){
+  const W=1000,H=170,n=30,r=15,pad=26;
+  const step=(W-pad*2)/n;
+  let s="";
+  for(let d=0;d<n;d++){
+    const ph=d/SYN, k=(1-Math.cos(2*Math.PI*ph))/2, waxing=ph<0.5;
+    const cx=pad+step*(d+0.5), cy=76;
+    s+=`<circle cx="${cx.toFixed(1)}" cy="${cy}" r="${r}" fill="#1E2636"/>`;
+    const rx=r*Math.abs(1-2*k);
+    const so=waxing?1:0, si=(k<0.5)?(waxing?0:1):(waxing?1:0);
+    s+=`<path transform="translate(${cx.toFixed(1)},${cy})" d="M0,${-r} A${r},${r} 0 0,${so} 0,${r} A${rx.toFixed(2)},${r} 0 0,${si} 0,${-r} Z" fill="#E8D9A0"/>`;
+    s+=`<text x="${cx.toFixed(1)}" y="${cy+34}" text-anchor="middle">${d+1}</text>`;
+  }
+  const at=i=>pad+step*(i+0.5);
+  const marks=[[0,"new moon · first of the month"],[14,"full moon · Passover and Tabernacles"],[28,"29 or 30?"]];
+  marks.forEach(([i,t])=>{
+    s+=`<line x1="${at(i).toFixed(1)}" y1="18" x2="${at(i).toFixed(1)}" y2="52" stroke="#C9A83B" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text class="big" x="${at(i).toFixed(1)}" y="13" text-anchor="middle">${t}</text>`;
+  });
+  s+=`<rect x="${(at(28)-step/2).toFixed(1)}" y="52" width="${(step*2).toFixed(1)}" height="48" fill="#C9A83B" fill-opacity=".10"/>
+      <text x="${at(29).toFixed(1)}" y="128" text-anchor="middle">the day decided by eye</text>`;
+  const el=document.getElementById("mstrip");
+  el.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  el.innerHTML=s;
+})();
+
+/* ---------- festival list ---------- */
+const all=[shabbat,rosh,...fests];
+const flist=document.getElementById("flist");
+flist.innerHTML=all.map(f=>{
+  const cls=(f.cat==="torah")?"":"nvi";
+  return `<div class="fitem ${cls}" data-cat="${f.cat}">
+    <div class="when">${f.when.split(" · ")[0]}<small>${f.cat==="torah"?"from the Torah":f.cat==="fast"?"fast · Prophets":f.cat==="moon"?"from the Torah":"from the Writings"}</small></div>
+    <div><h3>${f.n}</h3><p>${f.t}</p><div class="src">${f.src}</div></div></div>`;
+}).join("");
+document.querySelectorAll(".fl").forEach(b=>b.onclick=()=>{
+  const f=b.dataset.f;
+  document.querySelectorAll(".fl").forEach(o=>o.setAttribute("aria-pressed",o===b));
+  document.querySelectorAll(".fitem").forEach(it=>{
+    const c=it.dataset.cat;
+    const show=f==="all"||(f==="torah"&&(c==="torah"||c==="moon"))||(f==="nvi"&&(c==="nvi"||c==="fast"))||(f==="fast"&&c==="fast");
+    it.classList.toggle("hide",!show);
+  });
+});
+
+/* ---------- jubilee ---------- */
+const jub=document.getElementById("jub");
+jub.innerHTML=Array.from({length:50},(_,i)=>{
+  const y=i+1, sh=y%7===0&&y!==49?false:false;
+  const isSh=y%7===0, isJ=y===50;
+  return `<button data-y="${y}" class="${isJ?"jb":isSh?"sh":""}">${y}</button>`;
+}).join("");
+jub.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+  const y=+b.dataset.y;
+  const o=document.getElementById("jubout");
+  if(y===50) o.innerHTML=`<b>A jubilee year.</b> It opens with the horn on the Day of Atonement. Every field returns to its original owner and every Hebrew bondsman goes free. The sale that preceded it was never a sale but a lease — “for the land is mine; you are strangers and sojourners with me”. <span style="font-size:13px">Leviticus 25:8–24</span>`;
+  else if(y%7===0) o.innerHTML=`<b>A sabbatical year.</b> “The land shall keep a sabbath of complete rest” — no sowing, no pruning, no gathering in. Whatever grows of itself is free to all. At the end of this year debts are released too, and at the festival of Tabernacles that follows the Assembly is held. <span style="font-size:13px">Leviticus 25:1–7 · Deuteronomy 15:1–11</span>`;
+  else o.innerHTML=`<b>Year ${y}.</b> An ordinary working year. ${7-(y%7)} years to the next sabbatical${y<50?`, and ${50-y} to the jubilee`:""}.`;
+});
+</script>
+<script defer src="../../assets/share.js"></script>
+</body>
+</html>

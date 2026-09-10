@@ -6,9 +6,54 @@
     <changefreq>weekly</changefreq><priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="he" href="https://lugasia.github.io/visual-tanakh/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://lugasia.github.io/visual-tanakh/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lugasia.github.io/visual-tanakh/"/>
   </url>
-  <url><loc>https://lugasia.github.io/visual-tanakh/he/calendar/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lugasia.github.io/visual-tanakh/he/treasures/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lugasia.github.io/visual-tanakh/he/return/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lugasia.github.io/visual-tanakh/en/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url>
+    <loc>https://lugasia.github.io/visual-tanakh/en/</loc>
+    <changefreq>weekly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://lugasia.github.io/visual-tanakh/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lugasia.github.io/visual-tanakh/en/"/>
+  </url>
+  <url>
+    <loc>https://lugasia.github.io/visual-tanakh/he/calendar/</loc>
+    <changefreq>monthly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://lugasia.github.io/visual-tanakh/he/calendar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lugasia.github.io/visual-tanakh/en/calendar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lugasia.github.io/visual-tanakh/he/calendar/"/>
+  </url>
+  <url>
+    <loc>https://lugasia.github.io/visual-tanakh/en/calendar/</loc>
+    <changefreq>monthly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://lugasia.github.io/visual-tanakh/he/calendar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lugasia.github.io/visual-tanakh/en/calendar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lugasia.github.io/visual-tanakh/he/calendar/"/>
+  </url>
+  <url>
+    <loc>https://lugasia.github.io/visual-tanakh/he/treasures/</loc>
+    <changefreq>monthly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://lugasia.github.io/visual-tanakh/he/treasures/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lugasia.github.io/visual-tanakh/en/treasures/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lugasia.github.io/visual-tanakh/he/treasures/"/>
+  </url>
+  <url>
+    <loc>https://lugasia.github.io/visual-tanakh/en/treasures/</loc>
+    <changefreq>monthly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://lugasia.github.io/visual-tanakh/he/treasures/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lugasia.github.io/visual-tanakh/en/treasures/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lugasia.github.io/visual-tanakh/he/treasures/"/>
+  </url>
+  <url>
+    <loc>https://lugasia.github.io/visual-tanakh/he/return/</loc>
+    <changefreq>monthly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://lugasia.github.io/visual-tanakh/he/return/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lugasia.github.io/visual-tanakh/en/return/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lugasia.github.io/visual-tanakh/he/return/"/>
+  </url>
+  <url>
+    <loc>https://lugasia.github.io/visual-tanakh/en/return/</loc>
+    <changefreq>monthly</changefreq><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://lugasia.github.io/visual-tanakh/he/return/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lugasia.github.io/visual-tanakh/en/return/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lugasia.github.io/visual-tanakh/he/return/"/>
+  </url>
 </urlset>

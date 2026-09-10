@@ -9,6 +9,18 @@
     fb:'<svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0022 12z"/></svg>',
     ln:'<svg viewBox="0 0 24 24"><path d="M9.5 12.6a3.9 3.9 0 011.1-2.7l2.6-2.6a3.9 3.9 0 015.5 5.5l-1.5 1.5a.9.9 0 01-1.3-1.3l1.5-1.5a2.1 2.1 0 00-3-3l-2.6 2.6a2.1 2.1 0 000 3 .9.9 0 11-1.3 1.3 3.9 3.9 0 01-1-2.8zm-2.1 8.3a3.9 3.9 0 01-2.8-6.7l1.5-1.5a.9.9 0 011.3 1.3l-1.5 1.5a2.1 2.1 0 003 3l2.6-2.6a2.1 2.1 0 000-3 .9.9 0 011.3-1.3 3.9 3.9 0 010 5.5l-2.6 2.6a3.9 3.9 0 01-2.8 1.2z"/></svg>'
   };
+  // The bar is shared by both language versions; take its wording from the page.
+  var EN = (document.documentElement.lang || "he").slice(0,2) === "en";
+  var T = EN
+    ? {title:"Worth sending to someone",
+       sub:"If something here surprised you, it will probably surprise them.",
+       wa:"WhatsApp", tg:"Telegram", fb:"Facebook",
+       copy:"Copy link", copied:"Copied", share:"Share"}
+    : {title:"שווה לשלוח למישהו",
+       sub:"אם משהו כאן הפתיע אתכם, כנראה שיפתיע גם אותם.",
+       wa:"ווטסאפ", tg:"טלגרם", fb:"פייסבוק",
+       copy:"העתקת קישור", copied:"הועתק", share:"שיתוף"};
+
   function meta(p){var m=document.querySelector('meta[property="'+p+'"]');return m?m.content:"";}
   var url=(document.querySelector('link[rel=canonical]')||{}).href||location.href.split("#")[0];
   var hookDefault=meta("og:title")||document.title;
@@ -18,19 +30,19 @@
     var msg=hook+"\n"+url;
     var E=encodeURIComponent;
     box.innerHTML=
-      '<h3>'+(box.dataset.title||"שווה לשלוח למישהו")+'</h3>'+
-      '<p>'+(box.dataset.sub||"אם משהו כאן הפתיע אתכם, כנראה שיפתיע גם אותם.")+'</p>'+
+      '<h3>'+(box.dataset.title||T.title)+'</h3>'+
+      '<p>'+(box.dataset.sub||T.sub)+'</p>'+
       '<div class="share-row">'+
-        '<a class="wa" href="https://wa.me/?text='+E(msg)+'" target="_blank" rel="noopener">'+ICO.wa+'ווטסאפ</a>'+
+        '<a class="wa" href="https://wa.me/?text='+E(msg)+'" target="_blank" rel="noopener">'+ICO.wa+T.wa+'</a>'+
         '<a href="https://twitter.com/intent/tweet?text='+E(hook)+'&url='+E(url)+'" target="_blank" rel="noopener">'+ICO.x+'X</a>'+
-        '<a href="https://t.me/share/url?url='+E(url)+'&text='+E(hook)+'" target="_blank" rel="noopener">'+ICO.tg+'טלגרם</a>'+
-        '<a href="https://www.facebook.com/sharer/sharer.php?u='+E(url)+'" target="_blank" rel="noopener">'+ICO.fb+'פייסבוק</a>'+
-        '<button type="button" class="copy">'+ICO.ln+'העתקת קישור</button>'+
+        '<a href="https://t.me/share/url?url='+E(url)+'&text='+E(hook)+'" target="_blank" rel="noopener">'+ICO.tg+T.tg+'</a>'+
+        '<a href="https://www.facebook.com/sharer/sharer.php?u='+E(url)+'" target="_blank" rel="noopener">'+ICO.fb+T.fb+'</a>'+
+        '<button type="button" class="copy">'+ICO.ln+T.copy+'</button>'+
       '</div>';
     box.querySelector(".copy").addEventListener("click",function(){
       var b=this;
-      var done=function(){b.classList.add("ok");b.lastChild.textContent="הועתק";
-        setTimeout(function(){b.classList.remove("ok");b.lastChild.textContent="העתקת קישור";},2200);};
+      var done=function(){b.classList.add("ok");b.lastChild.textContent=T.copied;
+        setTimeout(function(){b.classList.remove("ok");b.lastChild.textContent=T.copy;},2200);};
       if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(done,done);}
       else{var t=document.createElement("textarea");t.value=url;document.body.appendChild(t);t.select();
            try{document.execCommand("copy");}catch(e){} document.body.removeChild(t); done();}
@@ -41,7 +53,7 @@
   if(document.querySelector(".share-block")){
     var fab=document.createElement("button");
     fab.className="share-fab"; fab.type="button";
-    fab.innerHTML=ICO.wa+"שיתוף";
+    fab.innerHTML=ICO.wa+T.share;
     fab.addEventListener("click",function(){
       var hook=(document.querySelector(".share-block").dataset.hook)||hookDefault;
       if(navigator.share){navigator.share({title:document.title,text:hook,url:url}).catch(function(){});}

@@ -65,34 +65,39 @@
   updateLabels();
 })();
 
-// Language preference. The chapters exist in Hebrew only, so a reader who chose
-// English must never land in one without being told why, or how to get back.
+// Language preference. Both versions of every chapter exist, so a reader who
+// chose one language is never left on the other without an offer to switch.
 (() => {
   const KEY='vt-lang';
   const read=()=>{try{return localStorage.getItem(KEY);}catch(e){return null;}};
   const write=v=>{try{localStorage.setItem(KEY,v);}catch(e){}};
 
   const path=location.pathname;
-  const onEnglish=/\/en\/?$/.test(path);
-  const inChapter=/\/he\/[^/]+\/?$/.test(path);
+  const chapter=path.match(/\/(he|en)\/([^/]+)\/?$/);
+  const onCollection=/\/en\/?$/.test(path);
 
   // Landing on a page states the choice; so does using the language switch.
-  if(onEnglish)write('en');
+  // Only a collection page or the language switch states a preference.
+  // Opening a chapter must not, or the offer to switch could never appear.
+  if(onCollection)write('en');
   else if(path.replace(/\/+$/,'').endsWith('/visual-tanakh')||path==='/')write('he');
   document.querySelectorAll('.language-link').forEach(a=>a.addEventListener('click',()=>{
-    write(/\/en\/?$/.test(new URL(a.href,location.href).pathname)?'en':'he');
+    write(/\/en\//.test(new URL(a.href,location.href).pathname)?'en':'he');
   }));
 
-  if(!inChapter||read()!=='en')return;
+  if(!chapter)return;
+  const here=chapter[1], slug=chapter[2], want=read();
+  if(!want||want===here)return;
 
-  // Root of the deployed site, whatever it is mounted under.
   const root=new URL('../../',location.href).pathname;
+  const copy=want==='en'
+    ? ['This chapter is also available in English.','Read it in English →']
+    : ['הפרק הזה קיים גם בעברית.','לקריאה בעברית →'];
   const bar=document.createElement('aside');
   bar.className='lang-bar';
-  bar.lang='en';
-  bar.dir='ltr';
-  bar.innerHTML='<span>This chapter has not been translated yet — the text below is in Hebrew.</span>'+
-    '<a href="'+root+'en/">← Back to the English collection</a>';
+  bar.lang=want;
+  bar.dir=want==='en'?'ltr':'rtl';
+  bar.innerHTML='<span>'+copy[0]+'</span><a href="'+root+want+'/'+slug+'/">'+copy[1]+'</a>';
   const main=document.getElementById('main-content');
   if(main)main.insertBefore(bar,main.firstChild);
 })();

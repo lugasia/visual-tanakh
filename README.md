@@ -68,11 +68,11 @@ calculated, and what is reconstructed is kept visible throughout.
 
 | | Chapter | What's inside |
 |---|---|---|
-| **01** | [The Calendar](https://lugasia.github.io/visual-tanakh/he/calendar/) | A lunar year wheel showing the moon phase on each of 354 days, three systems of month names, and every festival traced to its source |
-| **02** | [The Treasures](https://lugasia.github.io/visual-tanakh/he/treasures/) | 14 events of plunder and payment across 470 years, an interactive map of where the treasure went, and the journey of the Ark |
-| **03** | [Return to Zion](https://lugasia.github.io/visual-tanakh/he/return/) | Ezra 2 against Nehemiah 7 — 42 entries, 21 of which disagree — plus a map of the towns of origin |
+| **01** | [The Calendar](https://lugasia.github.io/visual-tanakh/en/calendar/) | A lunar year wheel showing the moon phase on each of 354 days, three systems of month names, and every festival traced to its source |
+| **02** | [The Treasures](https://lugasia.github.io/visual-tanakh/en/treasures/) | 14 events of plunder and payment across 470 years, an interactive map of where the treasure went, and the journey of the Ark |
+| **03** | [Return to Zion](https://lugasia.github.io/visual-tanakh/en/return/) | Ezra 2 against Nehemiah 7 — 42 entries, 21 of which disagree — plus a map of the towns of origin |
 
-*Chapter content is currently in Hebrew.*
+*All three chapters are available in both Hebrew and English.*
 
 ### Three findings from the site
 
@@ -137,6 +137,6 @@ Deployment runs through GitHub Actions (`.github/workflows/pages.yml`) and uploa
 run **Deploy Visual Tanakh** manually from the Actions tab.
 
 Still outstanding before a full public launch: complete the claim and quotation review,
-align the grouped census rows in the return chapter, confirm map and data asset
-attribution, and add English chapter translations. See `SETUP.md` for the open items
+align the grouped census rows in the return chapter, and confirm map and data
+asset attribution. See `SETUP.md` for the open items
 around sharing, analytics and a custom domain.
