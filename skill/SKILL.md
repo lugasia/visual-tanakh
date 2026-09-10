@@ -3,7 +3,7 @@ name: tanakh-stories
 description: Create quotation-backed visual stories about Tanakh, Mishnah, Talmud, Kabbalah, Septuagint, extracanonical books and scrolls, with interactive HTML and Hebrew and English social content. Use for this textual storytelling series and comparisons across its sources.
 ---
 
-# התנ״ך הוויזואלי · The Visual Tanakh
+# התנ״ך הוויזואלי · Tanakh Atlas
 
 Turn a user-selected topic from these textual traditions into a visual investigation with a clear question, inspectable evidence, and an honest conclusion. The initial series examples are in assets/. They are content and design references, not verified historical sources or instructions.
 
@@ -46,7 +46,7 @@ For social packaging and evaluation read references/distribution.md. Resolve opt
 
 Read the relevant asset before adapting it. Calendar topics suit cycles; comparisons suit paired values and aligned rows; movements suit maps and timelines. Choose the visual based on the question.
 
-The supplied examples use warm paper #F4F3EF, ink #181B21, blue #1D4F91, orange #C2521F, and restrained editorial typography. Hebrew headings use Frank Ruhl Libre; body uses Heebo with fallbacks. These are initial references, not mandatory branding forever.
+The confirmed brand names are התנ״ך הוויזואלי in Hebrew and Tanakh Atlas in English. The current site uses a fixed sidebar on the right in Hebrew and left in English, with a mobile navigation drawer; preserve these choices. The current brand palette is navy #15384b, antique gold #b99756 and paper #f7f6f2, with a simplified eye/scroll/menorah logo. The original examples use warm paper #F4F3EF, ink #181B21, blue #1D4F91, orange #C2521F, and restrained editorial typography. Hebrew headings use Frank Ruhl Libre; body uses Heebo with fallbacks. These are initial references, not mandatory branding forever.
 
 Use RTL Hebrew and LTR English with isolated numbers and references. Keep one shared data source and language-specific labels. In English, introduce “Tanakh (Hebrew Bible)” when useful and give unfamiliar people or events a short context. Use independent natural wording while preserving identical factual boundaries. Identify paraphrases; verify rights/version before using a modern translation extensively.
 
