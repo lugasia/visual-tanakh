@@ -1,0 +1,23 @@
+/* ===== סרגל שיתוף — התנ״ך הוויזואלי ===== */
+.share-block{margin:56px 0 8px;padding:26px 0 0;border-top:1px solid var(--rule,#d8d6ce)}
+.share-block h3{font-family:"Frank Ruhl Libre","Times New Roman",serif;font-size:22px;margin:0 0 4px;font-weight:700}
+.share-block p{margin:0 0 16px;color:#5a6270;font-size:15.5px}
+.share-row{display:flex;flex-wrap:wrap;gap:9px}
+.share-row a,.share-row button{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:inherit;font-size:15px;font-weight:500;text-decoration:none;cursor:pointer;
+  padding:11px 18px;border-radius:999px;border:1px solid #d8d6ce;background:#fff;color:#181b21;
+  transition:transform .12s ease,border-color .12s ease}
+.share-row a:hover,.share-row button:hover{transform:translateY(-1px);border-color:#15384b}
+.share-row a:focus-visible,.share-row button:focus-visible{outline:2px solid #9b7b41;outline-offset:2px}
+.share-row .wa{background:#128C7E;border-color:#128C7E;color:#fff}
+.share-row svg{width:17px;height:17px;fill:currentColor;flex:none}
+.share-row .ok{color:#2f7d5c;border-color:#2f7d5c}
+/* כפתור צף בנייד */
+.share-fab{position:fixed;inset-inline-end:16px;bottom:16px;z-index:50;display:none;
+  align-items:center;gap:8px;padding:13px 20px;border-radius:999px;border:0;cursor:pointer;
+  background:#128C7E;color:#fff;font-family:inherit;font-size:15px;font-weight:600;
+  box-shadow:0 6px 22px rgba(0,0,0,.22)}
+.share-fab svg{width:18px;height:18px;fill:currentColor}
+@media(max-width:760px){.share-fab{display:inline-flex}}
+@media print{.share-block,.share-fab{display:none}}
