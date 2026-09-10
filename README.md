@@ -117,6 +117,8 @@ If you find this project useful, consider supporting its development:
 
 בנוי בידי [lugasia](https://github.com/lugasia) · Built by [lugasia](https://github.com/lugasia)
 
+© 2026 כל הזכויות שמורות לאמיר לוגסי · All rights reserved.
+
 </sub>
 </div>
 
