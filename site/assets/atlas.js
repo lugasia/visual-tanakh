@@ -88,6 +88,9 @@
   if(!chapter)return;
   const here=chapter[1], slug=chapter[2], want=read();
   if(!want||want===here)return;
+  // Chapters that exist in one language only have nothing to offer.
+  const BOTH=['calendar','treasures','return'];
+  if(BOTH.indexOf(slug)<0)return;
 
   const root=new URL('../../',location.href).pathname;
   const copy=want==='en'
