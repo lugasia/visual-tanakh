@@ -64,3 +64,35 @@
   narrow.addEventListener('change',updateLabels);
   updateLabels();
 })();
+
+// Language preference. The chapters exist in Hebrew only, so a reader who chose
+// English must never land in one without being told why, or how to get back.
+(() => {
+  const KEY='vt-lang';
+  const read=()=>{try{return localStorage.getItem(KEY);}catch(e){return null;}};
+  const write=v=>{try{localStorage.setItem(KEY,v);}catch(e){}};
+
+  const path=location.pathname;
+  const onEnglish=/\/en\/?$/.test(path);
+  const inChapter=/\/he\/[^/]+\/?$/.test(path);
+
+  // Landing on a page states the choice; so does using the language switch.
+  if(onEnglish)write('en');
+  else if(path.replace(/\/+$/,'').endsWith('/visual-tanakh')||path==='/')write('he');
+  document.querySelectorAll('.language-link').forEach(a=>a.addEventListener('click',()=>{
+    write(/\/en\/?$/.test(new URL(a.href,location.href).pathname)?'en':'he');
+  }));
+
+  if(!inChapter||read()!=='en')return;
+
+  // Root of the deployed site, whatever it is mounted under.
+  const root=new URL('../../',location.href).pathname;
+  const bar=document.createElement('aside');
+  bar.className='lang-bar';
+  bar.lang='en';
+  bar.dir='ltr';
+  bar.innerHTML='<span>This chapter has not been translated yet — the text below is in Hebrew.</span>'+
+    '<a href="'+root+'en/">← Back to the English collection</a>';
+  const main=document.getElementById('main-content');
+  if(main)main.insertBefore(bar,main.firstChild);
+})();
