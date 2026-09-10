@@ -1,0 +1,250 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="gaps" id="gaps" role="img" aria-label="תרשים הפרשים בין עזרא ב׳ לנחמיה ז׳" viewBox="0 0 940 586"><style>
+:root{
+  --bg:#F4F3EF;
+  --card:#FFFFFF;
+  --ink:#181B21;
+  --ink2:#5A6270;
+  --rule:#D8D6CE;
+  --ezra:#1D4F91;
+  --ezra-soft:#DCE6F3;
+  --neh:#C2521F;
+  --neh-soft:#F7E3D8;
+  --gold:#9A7B12;
+  --green:#2F7D5C;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Heebo",-apple-system,"Arial Hebrew",system-ui,sans-serif;font-size:17px;line-height:1.65;font-weight:400}
+h1,h2,h3{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;line-height:1.15;margin:0;font-weight:700}
+p{margin:0 0 1em}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+.num{font-variant-numeric:tabular-nums}
+
+/* masthead */
+.mast{padding:56px 0 30px}
+.mast h1{font-size:clamp(42px,8vw,78px);font-weight:900;letter-spacing:-.015em}
+.mast .sub{font-size:clamp(17px,2.3vw,21px);color:var(--ink2);max-width:58ch;margin-top:12px}
+.mast .refs{font-size:14px;color:var(--ink2);margin-top:16px}
+
+section{padding:44px 0;border-top:1px solid var(--rule)}
+section > h2{font-size:clamp(26px,4vw,36px);margin-bottom:8px}
+section > .lede{color:var(--ink2);max-width:62ch;margin-bottom:26px;font-size:17px}
+
+/* --- hero build-up --- */
+.builder{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px}
+.meter{position:relative;height:64px;background:#EDEBE4;border-radius:4px;overflow:hidden;margin:10px 0 8px}
+.meter .grown{position:absolute;inset-inline-start:0;top:0;bottom:0;width:0;background:var(--ezra);transition:width .55s cubic-bezier(.2,.75,.3,1)}
+.meter.n .grown{background:var(--neh)}
+.meter .goal{position:absolute;inset-inline-end:0;top:0;bottom:0;border-inline-start:3px dashed var(--gold)}
+.meter .inside{position:absolute;top:50%;transform:translateY(-50%);inset-inline-start:14px;color:#fff;font-weight:600;font-size:22px}
+.meter .outside{position:absolute;top:50%;transform:translateY(-50%);inset-inline-end:14px;color:var(--gold);font-weight:600;font-size:16px}
+.mrow{display:flex;justify-content:space-between;font-size:14px;color:var(--ink2);margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{border:1px solid var(--rule);background:#fff;border-radius:999px;padding:7px 14px;font-size:14.5px;cursor:pointer;font-family:"Heebo";color:var(--ink);display:flex;gap:8px;align-items:center}
+.chip .c{width:9px;height:9px;border-radius:50%;background:var(--rule)}
+.chip[aria-pressed="true"]{background:var(--ezra-soft);border-color:var(--ezra);color:var(--ezra);font-weight:500}
+.chip[aria-pressed="true"] .c{background:var(--ezra)}
+body.nehmode .chip[aria-pressed="true"]{background:var(--neh-soft);border-color:var(--neh);color:var(--neh)}
+body.nehmode .chip[aria-pressed="true"] .c{background:var(--neh)}
+.chip:focus-visible,.tab:focus-visible,.ctl:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.gapline{margin-top:22px;padding:14px 16px;background:#FBF6EC;border-inline-start:4px solid var(--gold);border-radius:4px;font-size:16px}
+.gapline b{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:21px}
+
+/* source switch */
+.switch{display:inline-flex;border:1px solid var(--rule);border-radius:999px;overflow:hidden;background:#fff;margin-bottom:20px}
+.switch button{font-family:"Heebo";font-size:15px;padding:9px 20px;border:0;background:transparent;cursor:pointer;color:var(--ink2)}
+.switch button[aria-pressed="true"]{background:var(--ezra);color:#fff;font-weight:500}
+.switch button.nb[aria-pressed="true"]{background:var(--neh)}
+
+/* --- diverging gaps --- */
+.gapwrap{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:20px 14px}
+.gapkey{display:flex;gap:20px;font-size:14.5px;color:var(--ink2);margin:0 6px 12px;flex-wrap:wrap}
+.gapkey i{display:inline-block;width:12px;height:12px;margin-inline-end:6px;vertical-align:-2px;border-radius:2px}
+svg.gaps{display:block;width:100%;height:auto;font-family:"Heebo"}
+svg.gaps .lbl{font-size:13.5px;fill:var(--ink)}
+svg.gaps .val{font-size:13px;fill:var(--ink2);font-weight:500}
+svg.gaps rect.bar{cursor:pointer}
+svg.gaps g:hover rect.bar{opacity:.75}
+svg.gaps .axis{stroke:var(--ink2);stroke-width:1}
+svg.gaps .grid{stroke:var(--rule);stroke-width:1;stroke-dasharray:3 3}
+.gapdetail{margin-top:14px;padding:14px 16px;background:#F7F6F2;border-radius:4px;font-size:15.5px;min-height:56px;color:var(--ink2)}
+.gapdetail b{color:var(--ink)}
+
+/* --- table --- */
+.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:16px}
+.ctl{font-family:"Heebo";font-size:14.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:8px 14px;cursor:pointer;color:var(--ink)}
+.ctl[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+input.search{font-family:"Heebo";font-size:14.5px;padding:8px 12px;border:1px solid var(--rule);border-radius:4px;min-width:170px;background:#fff;color:var(--ink)}
+input.search:focus{outline:2px solid var(--gold);outline-offset:1px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+th{text-align:start;font-weight:600;font-size:13.5px;color:var(--ink2);padding:11px 12px;border-bottom:2px solid var(--rule);background:#FAF9F6}
+td{padding:9px 12px;border-bottom:1px solid var(--rule);font-size:15.5px;vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tr.d td{background:#FDF3EE}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap;width:1%}
+.minibar{display:block;height:7px;border-radius:2px;margin-top:3px}
+.mb-e{background:var(--ezra)}
+.mb-n{background:var(--neh)}
+td .tag{font-size:12.5px;color:var(--ink2);display:block;font-weight:300}
+.delta{font-weight:600;font-variant-numeric:tabular-nums}
+.delta.up{color:var(--neh)}
+.delta.dn{color:var(--ezra)}
+.delta.eq{color:#A8ADB5;font-weight:400}
+
+/* --- map --- */
+#map{height:520px;border:1px solid var(--rule);border-radius:6px;background:#C9DCE6;z-index:0}
+.maptabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.tab{font-family:"Heebo";font-size:14.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:8px 15px;cursor:pointer;color:var(--ink)}
+.tab[aria-pressed="true"]{background:var(--ezra);color:#fff;border-color:var(--ezra)}
+.leaflet-popup-content{font-family:"Heebo";font-size:14.5px;direction:rtl;text-align:right;margin:12px 14px}
+.leaflet-popup-content h4{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:19px;margin:0 0 6px;font-weight:700}
+.leaflet-popup-content .pn{display:flex;gap:14px;margin:6px 0}
+.leaflet-popup-content .pn span{font-variant-numeric:tabular-nums}
+.leaflet-popup-content .ref{color:#5A6270;font-size:12.5px;margin-top:6px}
+.mapnote{font-size:14px;color:var(--ink2);margin-top:12px}
+
+/* --- waves --- */
+.wavetabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.wavepanel{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:24px}
+.wavepanel h3{font-size:24px;margin-bottom:4px}
+.wavepanel .yr{color:var(--gold);font-weight:600;font-size:15px;margin-bottom:10px}
+.wavepanel .figs{display:flex;gap:28px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--rule)}
+.wavepanel .figs div .v{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:30px;font-weight:900;line-height:1}
+.wavepanel .figs div .t{font-size:13.5px;color:var(--ink2)}
+
+/* --- goods --- */
+.goods{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.goods div{background:var(--card);padding:16px}
+.goods .v{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:27px;font-weight:700;line-height:1.1;color:var(--ezra)}
+.goods .t{font-size:14px;color:var(--ink2);margin-top:2px}
+
+.mapwrap{position:relative;overflow:hidden;background:#C9DCE6}
+.msvg{display:block;width:100%;height:100%;touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none}
+.msvg:active{cursor:grabbing}
+.mlab{font-family:"Heebo",-apple-system,"Arial Hebrew",Arial,sans-serif;font-size:13.5px;font-weight:500;fill:#181B21}
+.mzoom{position:absolute;top:10px;inset-inline-start:10px;display:flex;flex-direction:column;gap:5px;z-index:2}
+.mzoom button{width:36px;height:36px;border:1px solid #C9C4B6;background:#fff;border-radius:5px;font-size:20px;line-height:1;cursor:pointer;color:#181B21;font-family:inherit}
+.mzoom button:active{background:#EDEBE4}
+.mattr{position:absolute;bottom:5px;inset-inline-end:7px;font-size:11px;color:#5A6270;background:rgba(255,255,255,.8);padding:1px 7px;border-radius:3px;z-index:2}
+.mpop{position:absolute;z-index:3;background:#fff;border:1px solid #C9C4B6;border-radius:7px;box-shadow:0 5px 22px rgba(0,0,0,.18);padding:15px 17px 14px;max-width:270px;font-size:14.5px;line-height:1.6}
+.mpop h4{font-family:"Frank Ruhl Libre","Times New Roman",serif;font-size:18px;margin:0 0 5px;font-weight:700}
+.mpop .mx{position:absolute;top:3px;inset-inline-start:7px;border:0;background:transparent;font-size:20px;cursor:pointer;color:#5A6270;line-height:1;padding:2px 4px;font-family:inherit}
+.mpop .ref{color:#5A6270;font-size:12.5px;margin-top:7px}
+.mpop .pn{display:flex;gap:14px;margin:6px 0;font-variant-numeric:tabular-nums}
+.maphint{font-size:13px;color:#5A6270;margin-top:8px}
+
+footer{padding:40px 0 64px;border-top:1px solid var(--rule);font-size:15px;color:var(--ink2)}
+footer h3{font-size:20px;color:var(--ink);margin-bottom:12px}
+footer li{margin-bottom:9px;max-width:72ch}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  #map{height:400px}
+  td,th{padding:8px 8px;font-size:14.5px}
+  .meter .inside{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){.meter .grown{transition:none}}
+
+.atlas-nav{display:flex;flex-wrap:wrap;gap:12px 24px;padding:16px max(20px,calc((100% - 1020px)/2));border-bottom:1px solid #D8D6CE;font:14px Heebo,Arial,sans-serif;background:#F4F3EF}.atlas-nav a{color:#181B21;text-decoration:none}.atlas-nav a:first-child{font-weight:700;margin-inline-end:auto}.atlas-nav a:hover{text-decoration:underline}.atlas-draft{padding:8px 20px;background:#eee8db;color:#514831;text-align:center;font:13px Heebo,Arial,sans-serif}</style><line class="grid" x1="248" y1="26" x2="248" y2="572"></line>
+           <line class="grid" x1="868" y1="26" x2="868" y2="572"></line>
+           <text class="val" x="248" y="18" text-anchor="middle">1,100−</text>
+           <text class="val" x="868" y="18" text-anchor="middle">1,100+</text><g data-i="9" tabindex="0" role="button" aria-label="בני עזגד, הפרש 1100">
+      <rect x="190" y="23" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="41" text-anchor="end">בני עזגד</text>
+      <rect class="bar" x="558" y="28" width="310" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="875" y="41" text-anchor="start">+1,100</text>
+    </g><g data-i="32" tabindex="0" role="button" aria-label="בני סנאה, הפרש 300">
+      <rect x="190" y="50" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="68" text-anchor="end">בני סנאה</text>
+      <rect class="bar" x="558" y="55" width="84.54545454545453" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="649.5454545454545" y="68" text-anchor="start">+300</text>
+    </g><g data-i="12" tabindex="0" role="button" aria-label="בני עדין, הפרש 201">
+      <rect x="190" y="77" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="95" text-anchor="end">בני עדין</text>
+      <rect class="bar" x="558" y="82" width="56.64545454545455" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="621.6454545454545" y="95" text-anchor="start">+201</text>
+    </g><g data-i="27" tabindex="0" role="button" aria-label="בני מגביש, הפרש -156">
+      <rect x="190" y="104" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="122" text-anchor="end">בני מגביש</text>
+      <rect class="bar" x="514.0363636363636" y="109" width="43.96363636363636" height="16" rx="2" fill="#1D4F91"></rect>
+      <text class="val" x="507.0363636363636" y="122" text-anchor="end">−156</text>
+    </g><g data-i="2" tabindex="0" role="button" aria-label="בני ארח, הפרש -123">
+      <rect x="190" y="131" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="149" text-anchor="end">בני ארח</text>
+      <rect class="bar" x="523.3363636363637" y="136" width="34.663636363636364" height="16" rx="2" fill="#1D4F91"></rect>
+      <text class="val" x="516.3363636363637" y="149" text-anchor="end">−123</text>
+    </g><g data-i="16" tabindex="0" role="button" aria-label="בני חשם, הפרש 105">
+      <rect x="190" y="158" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="176" text-anchor="end">בני חשם</text>
+      <rect class="bar" x="558" y="163" width="29.590909090909093" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="594.5909090909091" y="176" text-anchor="start">+105</text>
+    </g><g data-i="5" tabindex="0" role="button" aria-label="בני זתוא, הפרש -100">
+      <rect x="190" y="185" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="203" text-anchor="end">בני זתוא</text>
+      <rect class="bar" x="529.8181818181819" y="190" width="28.181818181818183" height="16" rx="2" fill="#1D4F91"></rect>
+      <text class="val" x="522.8181818181819" y="203" text-anchor="end">−100</text>
+    </g><g data-i="25" tabindex="0" role="button" aria-label="אנשי בית אל והעי, הפרש -100">
+      <rect x="190" y="212" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="230" text-anchor="end">אנשי בית אל והעי</text>
+      <rect class="bar" x="529.8181818181819" y="217" width="28.181818181818183" height="16" rx="2" fill="#1D4F91"></rect>
+      <text class="val" x="522.8181818181819" y="230" text-anchor="end">−100</text>
+    </g><g data-i="18" tabindex="0" role="button" aria-label="בני בית לחם, הפרש 65">
+      <rect x="190" y="239" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="257" text-anchor="end">בני בית לחם</text>
+      <rect class="bar" x="558" y="244" width="18.318181818181817" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="583.3181818181819" y="257" text-anchor="start">+65</text>
+    </g><g data-i="19" tabindex="0" role="button" aria-label="אנשי נטופה, הפרש -56">
+      <rect x="190" y="266" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="284" text-anchor="end">אנשי נטופה</text>
+      <rect class="bar" x="542.2181818181818" y="271" width="15.781818181818183" height="16" rx="2" fill="#1D4F91"></rect>
+      <text class="val" x="535.2181818181818" y="284" text-anchor="end">−56</text>
+    </g><g data-i="38" tabindex="0" role="button" aria-label="בני אסף, הפרש 20">
+      <rect x="190" y="293" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="311" text-anchor="end">בני אסף</text>
+      <rect class="bar" x="558" y="298" width="5.636363636363636" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="570.6363636363636" y="311" text-anchor="start">+20</text>
+    </g><g data-i="11" tabindex="0" role="button" aria-label="בני בגוי, הפרש 11">
+      <rect x="190" y="320" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="338" text-anchor="end">בני בגוי</text>
+      <rect class="bar" x="558" y="325" width="3.1" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="568.1" y="338" text-anchor="start">+11</text>
+    </g><g data-i="41" tabindex="0" role="button" aria-label="בני דליה, טוביה ונקודא, הפרש -10">
+      <rect x="190" y="347" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="365" text-anchor="end">בני דליה, טוביה ונקודא</text>
+      <rect class="bar" x="555.1818181818181" y="352" width="2.818181818181818" height="16" rx="2" fill="#1D4F91"></rect>
+      <text class="val" x="548.1818181818181" y="365" text-anchor="end">−10</text>
+    </g><g data-i="3" tabindex="0" role="button" aria-label="בני פחת מואב, הפרש 6">
+      <rect x="190" y="374" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="392" text-anchor="end">בני פחת מואב</text>
+      <rect class="bar" x="558" y="379" width="2" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="567" y="392" text-anchor="start">+6</text>
+    </g><g data-i="7" tabindex="0" role="button" aria-label="בני בני / בנוי, הפרש 6">
+      <rect x="190" y="401" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="419" text-anchor="end">בני בני / בנוי</text>
+      <rect class="bar" x="558" y="406" width="2" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="567" y="419" text-anchor="start">+6</text>
+    </g><g data-i="8" tabindex="0" role="button" aria-label="בני בבי, הפרש 5">
+      <rect x="190" y="428" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="446" text-anchor="end">בני בבי</text>
+      <rect class="bar" x="558" y="433" width="2" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="567" y="446" text-anchor="start">+5</text>
+    </g><g data-i="30" tabindex="0" role="button" aria-label="בני לד, חדיד ואונו, הפרש -4">
+      <rect x="190" y="455" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="473" text-anchor="end">בני לד, חדיד ואונו</text>
+      <rect class="bar" x="556" y="460" width="2" height="16" rx="2" fill="#1D4F91"></rect>
+      <text class="val" x="549" y="473" text-anchor="end">−4</text>
+    </g><g data-i="10" tabindex="0" role="button" aria-label="בני אדניקם, הפרש 1">
+      <rect x="190" y="482" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="500" text-anchor="end">בני אדניקם</text>
+      <rect class="bar" x="558" y="487" width="2" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="567" y="500" text-anchor="start">+1</text>
+    </g><g data-i="14" tabindex="0" role="button" aria-label="בני בצי, הפרש 1">
+      <rect x="190" y="509" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="527" text-anchor="end">בני בצי</text>
+      <rect class="bar" x="558" y="514" width="2" height="16" rx="2" fill="#C2521F"></rect>
+      <text class="val" x="567" y="527" text-anchor="start">+1</text>
+    </g><g data-i="39" tabindex="0" role="button" aria-label="השוערים, הפרש -1">
+      <rect x="190" y="536" width="736" height="24" fill="transparent"></rect>
+      <text class="lbl" x="182" y="554" text-anchor="end">השוערים</text>
+      <rect class="bar" x="556" y="541" width="2" height="16" rx="2" fill="#1D4F91"></rect>
+      <text class="val" x="549" y="554" text-anchor="end">−1</text>
+    </g><line class="axis" x1="558" y1="26" x2="558" y2="572"></line></svg>

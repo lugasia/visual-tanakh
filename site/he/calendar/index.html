@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>לוח השנה של התנ״ך</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F3EF; --card:#FFF; --ink:#181B21; --ink2:#5A6270; --rule:#D8D6CE;
+  --torah:#1D4F91; --nvi:#C2521F; --moon:#9A7B12; --agri:#2F7D5C; --none:#8A8FA0;
+  --night:#141A26;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Heebo",-apple-system,"Arial Hebrew",system-ui,sans-serif;font-size:17px;line-height:1.65}
+h1,h2,h3{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;line-height:1.15;margin:0;font-weight:700}
+p{margin:0 0 1em}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+.num{font-variant-numeric:tabular-nums}
+.mast{padding:56px 0 30px}
+.mast h1{font-size:clamp(40px,8vw,74px);font-weight:900;letter-spacing:-.015em}
+.mast .sub{font-size:clamp(17px,2.3vw,21px);color:var(--ink2);max-width:58ch;margin-top:12px}
+section{padding:44px 0;border-top:1px solid var(--rule)}
+section>h2{font-size:clamp(25px,4vw,35px);margin-bottom:8px}
+section>.lede{color:var(--ink2);max-width:64ch;margin-bottom:24px}
+
+.ctl{font-family:"Heebo";font-size:14.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:8px 14px;cursor:pointer;color:var(--ink)}
+.ctl[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ctl:focus-visible{outline:2px solid var(--moon);outline-offset:2px}
+.controls{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px;align-items:center}
+.controls .grp{display:flex;gap:6px;border:1px solid var(--rule);border-radius:6px;padding:4px;background:#fff}
+.controls .grp .ctl{border:0;padding:6px 12px}
+
+/* wheel */
+.wheelbox{background:var(--night);border-radius:8px;padding:10px}
+svg.wheel{display:block;width:100%;height:auto;font-family:"Heebo"}
+svg.wheel text{fill:#EDEAE0}
+svg.wheel .mn{font-size:17px;font-weight:500}
+svg.wheel .mn2{font-size:12.5px;fill:#9AA3B2}
+svg.wheel .hub1{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:52px;font-weight:900;fill:#EDEAE0}
+svg.wheel .hub2{font-size:14px;fill:#9AA3B2}
+svg.wheel .fmark{cursor:pointer}
+svg.wheel .fmark:hover circle.fd,svg.wheel .fmark.sel circle.fd{r:11}
+svg.wheel .fmark:focus{outline:none}
+svg.wheel .fmark:focus circle.fd{stroke:#fff;stroke-width:2}
+svg.wheel .agtxt{font-size:11.5px;fill:#7FBFA4}
+.readout{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:20px;margin-top:14px;min-height:120px}
+.readout h3{font-size:23px;margin-bottom:2px}
+.readout .dt{color:var(--moon);font-weight:600;font-size:15px;margin-bottom:10px}
+.readout .src{font-size:13.5px;color:var(--ink2);margin-top:10px;padding-top:10px;border-top:1px solid var(--rule)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--ink2);margin-top:14px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-inline-end:6px;vertical-align:-1px}
+
+/* month strip */
+.strip{background:var(--night);border-radius:8px;padding:18px 14px}
+svg.mstrip{display:block;width:100%;height:auto}
+svg.mstrip text{fill:#9AA3B2;font-family:"Heebo";font-size:11px}
+svg.mstrip text.big{fill:#EDEAE0;font-size:13px;font-weight:500}
+
+/* tables */
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+th{text-align:start;font-size:13.5px;font-weight:600;color:var(--ink2);padding:11px 10px;background:#FAF9F6;border-bottom:2px solid var(--rule)}
+td{padding:9px 10px;border-bottom:1px solid var(--rule);font-size:15.5px}
+tr:last-child td{border-bottom:0}
+td.no{color:var(--none)}
+td.yes{color:var(--torah);font-weight:500}
+td .ref{display:block;font-size:12.5px;color:var(--ink2);font-weight:400}
+
+/* festival list */
+.flist{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.fitem{background:var(--card);padding:16px 18px;display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:start}
+.fitem .when{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:19px;font-weight:700;color:var(--torah)}
+.fitem.nvi .when{color:var(--nvi)}
+.fitem .when small{display:block;font-family:"Heebo";font-size:12.5px;font-weight:400;color:var(--ink2);margin-top:2px}
+.fitem h3{font-size:20px;margin-bottom:4px}
+.fitem p{font-size:15.5px;margin:0;color:var(--ink2)}
+.fitem .src{font-size:13px;color:var(--ink2);margin-top:7px}
+.fitem.hide{display:none}
+
+/* disputes */
+.disp{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.disp>div{background:var(--card);padding:18px}
+.disp h3{font-size:20px;margin-bottom:6px}
+.disp p{font-size:15.5px;color:var(--ink2);margin:0}
+.disp .src{font-size:13px;color:var(--ink2);margin-top:8px}
+
+/* jubilee */
+.jub{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;max-width:560px}
+.jub button{aspect-ratio:1;border:1px solid var(--rule);background:#fff;border-radius:4px;font-family:"Heebo";font-size:13px;cursor:pointer;color:var(--ink2);padding:0}
+.jub button.sh{background:#E7F1EB;border-color:var(--agri);color:var(--agri);font-weight:600}
+.jub button.jb{background:var(--moon);border-color:var(--moon);color:#fff;font-weight:700}
+.jub button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.jubout{margin-top:14px;font-size:15.5px;color:var(--ink2);min-height:48px}
+.jubout b{color:var(--ink)}
+
+footer{padding:40px 0 64px;border-top:1px solid var(--rule);font-size:15px;color:var(--ink2)}
+footer h3{font-size:20px;color:var(--ink);margin-bottom:12px}
+footer li{margin-bottom:9px;max-width:72ch}
+@media(max-width:640px){
+  body{font-size:16px}
+  .fitem{grid-template-columns:1fr;gap:6px}
+  td,th{padding:8px 7px;font-size:14.5px}
+  .jub{grid-template-columns:repeat(5,1fr)}
+  svg.wheel .mn{font-size:22px}
+  svg.wheel .mn2{font-size:16px}
+  svg.wheel .agtxt{display:none}
+}
+</style>
+<style>.atlas-nav{display:flex;flex-wrap:wrap;gap:12px 24px;padding:16px max(20px,calc((100% - 1020px)/2));border-bottom:1px solid #D8D6CE;font:14px Heebo,Arial,sans-serif;background:#F4F3EF}.atlas-nav a{color:#181B21;text-decoration:none}.atlas-nav a:first-child{font-weight:700;margin-inline-end:auto}.atlas-nav a:hover{text-decoration:underline}.atlas-draft{padding:8px 20px;background:#eee8db;color:#514831;text-align:center;font:13px Heebo,Arial,sans-serif}</style></head>
+<body><nav class="atlas-nav" aria-label="ניווט בספרייה"><a href="../../">התנ״ך הוויזואלי</a><a href="../calendar/">לוח השנה</a><a href="../treasures/">הרכוש</a><a href="../return/">שיבת ציון</a></nav><aside class="atlas-draft">גרסת עבודה · הפרק המקורי בתהליך בדיקת מקורות וציטוטים.</aside>
+<div class="wrap">
+
+<header class="mast">
+  <h1>לוח השנה של התנ״ך</h1>
+  <p class="sub">שנה ירחית של 354 יום, שנצמדת בכוח לעונות החקלאיות. חודשים בלי שמות, שני ראשי שנה, ומועדים שרובם נופלים בדיוק על מולד או על ירח מלא.</p>
+</header>
+
+<section>
+  <h2>גלגל השנה</h2>
+  <p class="lede">הטבעת החיצונית היא שלב הירח בכל אחד מ־354 ימי השנה — שנים־עשר מחזורי התמלאות והתרוקנות. לחצו על סימון מועד כדי לקרוא עליו.</p>
+
+  <div class="controls">
+    <div class="grp" role="group" aria-label="מערכת שמות החודשים">
+      <button class="ctl" data-nm="num" aria-pressed="true">מספרים · התורה</button>
+      <button class="ctl" data-nm="can" aria-pressed="false">שמות כנעניים · מלכים</button>
+      <button class="ctl" data-nm="bab" aria-pressed="false">שמות בבליים · שיבת ציון</button>
+    </div>
+    <button class="ctl" id="leap" aria-pressed="false">הוסיפו חודש עיבור</button>
+    <button class="ctl" id="agri" aria-pressed="true">טבעת חקלאית</button>
+  </div>
+
+  <div class="wheelbox"><svg class="wheel" id="wheel" role="img" aria-label="גלגל שנת הלוח התנ״כי"></svg></div>
+
+  <div class="legend">
+    <span><i style="background:#1D4F91"></i>מועד מן התורה</span>
+    <span><i style="background:#C2521F"></i>מועד או צום מן הנביאים והכתובים</span>
+    <span><i style="background:#9A7B12"></i>ראש חודש</span>
+    <span><i style="background:#7FBFA4"></i>עונה חקלאית</span>
+  </div>
+
+  <div class="readout" id="readout"></div>
+</section>
+
+<section>
+  <h2>איך נקבע חודש</h2>
+  <p class="lede">מחזור הירח נמשך 29 יום ומחצה. מכיוון שאי אפשר לחצות יום, חודש הוא 29 או 30 — וההכרעה נעשתה בעין, בראיית הסהר הראשון. לכן ״מחר חדש״ של שאול נמשך שני ימים: לא ידעו מראש איזה משניהם יהיה.</p>
+  <div class="strip"><svg class="mstrip" id="mstrip" role="img" aria-label="שלבי הירח לאורך חודש"></svg></div>
+  <p class="lede" style="margin-top:18px;margin-bottom:0">שימו לב מה נופל איפה: <b>יום תרועה</b> באחד לחודש — מולד, ירח נעלם. <b>פסח</b> ו<b>סוכות</b> בחמישה־עשר — ירח מלא, ליל אור לעולי הרגל. תהלים פ״א מנסח את שניהם בנשימה אחת: ״תקעו בחדש שופר, בכסה ליום חגנו״.</p>
+</section>
+
+<section>
+  <h2>שמות החודשים</h2>
+  <p class="lede">בתורה לחודשים אין שמות כלל — רק מספרים. ארבעה שמות כנעניים שרדו בספר מלכים. השמות שאנחנו משתמשים בהם היום הם בבליים, והם נכנסו רק אחרי הגלות — וגם אז, רק שבעה מתוך שנים־עשר מופיעים בתנ״ך בכלל.</p>
+  <table>
+    <thead><tr><th>מספר</th><th>שם כנעני</th><th>שם בבלי</th><th>מופיע בתנ״ך?</th></tr></thead>
+    <tbody id="monthtab"></tbody>
+  </table>
+</section>
+
+<section>
+  <h2>המועדים</h2>
+  <p class="lede">כל המועדים והצומות שיש להם מקור בתנ״ך, לפי סדר השנה.</p>
+  <div class="controls">
+    <button class="ctl fl" data-f="all" aria-pressed="true">הכל</button>
+    <button class="ctl fl" data-f="torah" aria-pressed="false">מן התורה</button>
+    <button class="ctl fl" data-f="nvi" aria-pressed="false">מן הנביאים והכתובים</button>
+    <button class="ctl fl" data-f="fast" aria-pressed="false">צומות</button>
+  </div>
+  <div class="flist" id="flist"></div>
+</section>
+
+<section>
+  <h2>מה שנוי במחלוקת</h2>
+  <p class="lede">הלוח התנ״כי אינו מסמך אחד עקבי. ארבע נקודות שבהן הכתובים חולקים זה על זה, או שותקים.</p>
+  <div class="disp">
+    <div>
+      <h3>״ממחרת השבת״ — מתי מתחילים לספור</h3>
+      <p>הנפת העומר נקבעת ״ממחרת השבת״. אם ״השבת״ היא יום טוב ראשון של פסח, הספירה מתחילה בשישה־עשר בניסן ושבועות נופל תמיד בו׳ בסיון — כך נהגו הפרושים וכך נקבע להלכה. אם ״השבת״ היא שבת בראשית, הספירה מתחילה תמיד ביום ראשון ושבועות נופל תמיד ביום ראשון — כך גרסו הבייתוסים, וכך נוהגים הקראים והשומרונים עד היום. הפסוק עצמו אינו מכריע.</p>
+      <p class="src">ויקרא כ״ג, יא–טז</p>
+    </div>
+    <div>
+      <h3>שבעה או עשרה באב</h3>
+      <p>מלכים ב׳ מתארך את שריפת הבית לשבעה בחודש החמישי. ירמיהו, המתאר את אותו אירוע עצמו, מתארך אותו לעשרה בו. שני התאריכים אינם מסתדרים, ואף אחד מהם אינו התשעה באב שהתקבע אחר כך.</p>
+      <p class="src">מלכים ב׳ כ״ה, ח · ירמיהו נ״ב, יב</p>
+    </div>
+    <div>
+      <h3>לוח המועדים של יחזקאל</h3>
+      <p>בחזון בית המקדש העתידי מופיע לוח מועדים שונה: חיטוי המקדש באחד בניסן ובשבעה בו, פסח בארבעה־עשר, וחג בן שבעה ימים בחמישה־עשר לחודש השביעי. אין בו יום כיפורים, אין בו שבועות, ואין בו שמיני עצרת. חז״ל התמודדו עם הפער הזה, ולפי המסורת ביקשו לגנוז את הספר בגללו.</p>
+      <p class="src">יחזקאל מ״ה, יח–כה</p>
+    </div>
+    <div>
+      <h3>שני ראשי שנה</h3>
+      <p>ניסן הוא ״ראש חדשים״ ולפיו נמנים המועדים ושנות המלכים. אבל השנה החקלאית נסגרת באסיף שבחודש השביעי — ״בצאת השנה״, ״תקופת השנה״ — ובאותו חודש חלים יום התרועה, יום הכיפורים ופתיחת שנת היובל. שתי המערכות רצות במקביל לאורך כל התנ״ך.</p>
+      <p class="src">שמות י״ב, ב · שמות כ״ג, טז · שמות ל״ד, כב · ויקרא כ״ה, ט</p>
+    </div>
+    <div>
+      <h3>ומה שאינו בתנ״ך כלל</h3>
+      <p>חנוכה אינה מופיעה בשום ספר מספרי התנ״ך — מקורה בספרי המקבים, שלא נכנסו לקנון. גם ט״ו בשבט, ל״ג בעומר וי״ז בתמוז כתאריך אינם בתנ״ך. פורים כן — הוא המועד היחיד שנקבע בתוך התנ״ך עצמו, בספר אסתר, ולא בסיני.</p>
+      <p class="src">אסתר ט׳, כ–לב</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>המחזור הגדול — שמיטה ויובל</h2>
+  <p class="lede">מעל שנת הירח רץ מחזור ארוך של חמישים שנה. לחצו על שנה.</p>
+  <div class="jub" id="jub"></div>
+  <p class="jubout" id="jubout">כל שנה שביעית — שמיטה. השנה החמישים — יובל.</p>
+</section>
+
+<footer>
+  <h3>הערות</h3>
+  <ul>
+    <li>אורך החודש הסינודי הוא 29.53 יום, ולכן שנה של שנים־עשר חודשים היא כ־354 יום — קצרה בכ־11 יום מן השנה השמשית. התורה דורשת שפסח יחול ב״חדש האביב״, ומכאן שנדרש עיבור, אך התנ״ך אינו מתאר שום מנגנון לקביעתו. מחזור העיבור הקבוע בן תשע־עשרה שנה הוא בבלי במקורו והתקבע רק מאוחר הרבה יותר.</li>
+    <li>הטבעת החקלאית מבוססת על לוח גזר, כתובת עברית מן המאה העשירית לפנה״ס — מקור ארכיאולוגי ולא מקראי. ההצמדה שלו לחודשי הלוח היא שחזור מחקרי מקובל, לא נתון שכתוב בו.</li>
+    <li>תאריך צום גדליה אינו מופיע בכתוב — ירמיהו מציין ״בחדש השביעי״ בלבד. מיקומו בגלגל הוא לפי המסורת המאוחרת.</li>
+    <li>היום המקראי נפתח בערב, כפי שמפורש בציווי יום הכיפורים: ״מערב עד ערב תשבתו שבתכם״.</li>
+  </ul>
+</footer>
+</div>
+
+<script>
+const SYN=29.530588;
+const months=[
+ {num:"הראשון",can:"אביב",bab:"ניסן",canRef:"שמות י״ג, ד",inT:"אסתר ג׳, ז · נחמיה ב׳, א"},
+ {num:"השני",can:"זיו",bab:"אייר",canRef:"מלכים א׳ ו׳, א",inT:null},
+ {num:"השלישי",can:null,bab:"סיון",inT:"אסתר ח׳, ט"},
+ {num:"הרביעי",can:null,bab:"תמוז",inT:null,note:"השם מופיע ביחזקאל ח׳, יד — אך כשם של אל, לא של חודש"},
+ {num:"החמישי",can:null,bab:"אב",inT:null},
+ {num:"השישי",can:null,bab:"אלול",inT:"נחמיה ו׳, טו"},
+ {num:"השביעי",can:"האתנים",bab:"תשרי",canRef:"מלכים א׳ ח׳, ב",inT:null},
+ {num:"השמיני",can:"בול",bab:"חשון",canRef:"מלכים א׳ ו׳, לח",inT:null},
+ {num:"התשיעי",can:null,bab:"כסלו",inT:"נחמיה א׳, א · זכריה ז׳, א"},
+ {num:"העשירי",can:null,bab:"טבת",inT:"אסתר ב׳, טז"},
+ {num:"עשתי־עשר",can:null,bab:"שבט",inT:"זכריה א׳, ז"},
+ {num:"שנים־עשר",can:null,bab:"אדר",inT:"אסתר ג׳, ז · עזרא ו׳, טו"}
+];
+const agri=["עצד פשת","קצר שערם","קצר וכל","זמר","זמר","קץ","אסף","אסף","זרע","זרע","לקש","לקש"];
+
+const fests=[
+ {m:1,d:1,n:"ראש חדשים",cat:"torah",when:"א׳ בניסן",
+  t:"״החדש הזה לכם ראש חדשים, ראשון הוא לכם לחדשי השנה״. נקודת האפס של הלוח, שנקבעה ביציאת מצרים.",src:"שמות י״ב, ב"},
+ {m:1,d:14,n:"פסח",cat:"torah",when:"י״ד בניסן",
+  t:"קרבן הפסח נשחט בין הערביים, בערב שבו הירח מלא כמעט. היחיד מבין המועדים שנקבע ליום ולא לחג בן ימים.",src:"שמות י״ב · ויקרא כ״ג, ה · במדבר כ״ח, טז"},
+ {m:1,d:15,n:"חג המצות",cat:"torah",when:"ט״ו–כ״א בניסן",
+  t:"שבעה ימים, ובהם שני מקראי קודש — ביום הראשון וביום השביעי. אחד משלושת הרגלים.",src:"ויקרא כ״ג, ו–ח · דברים ט״ז, א–ח"},
+ {m:1,d:16,n:"הנפת העומר",cat:"torah",when:"ט״ז בניסן · ״ממחרת השבת״",
+  t:"ראשית קציר השעורים. מיום זה נספרים חמישים יום עד שבועות. מועד הפתיחה של הספירה הוא אחת המחלוקות העתיקות בתנ״ך.",src:"ויקרא כ״ג, י–טז"},
+ {m:2,d:14,n:"פסח שני",cat:"torah",when:"י״ד באייר",
+  t:"מועד תשלומין למי שהיה טמא או בדרך רחוקה ולא יכול היה להקריב בזמנו. נקבע בעקבות פנייה של אנשים שנפסלו — אחד המקרים הבודדים שבהם חוק נחקק בתגובה לשאלה.",src:"במדבר ט׳, ו–יד"},
+ {m:3,d:6,n:"שבועות",cat:"torah",when:"נ׳ לספירה · ו׳ בסיון",
+  t:"חג הקציר, יום הביכורים. המועד היחיד שאין לו תאריך משלו — הוא תוצאה של ספירה. שתי הלחם מן החיטים החדשות. התורה אינה קושרת אותו למתן תורה.",src:"ויקרא כ״ג, טו–כא · שמות כ״ג, טז · דברים ט״ז, ט–יב"},
+ {m:4,d:9,n:"צום הרביעי",cat:"fast",when:"ט׳ בתמוז",
+  t:"היום שבו הובקעה חומת ירושלים בימי צדקיהו. זכריה מונה אותו כאחד מארבעה צומות, ומבשר שעתידים כולם להיהפך ״לששון ולשמחה ולמעדים טובים״.",src:"מלכים ב׳ כ״ה, ג · ירמיהו ל״ט, ב · זכריה ח׳, יט"},
+ {m:5,d:9,n:"צום החמישי",cat:"fast",when:"ז׳ או י׳ באב",
+  t:"חורבן הבית הראשון. מלכים גורס בשבעה לחודש, ירמיהו בעשרה — על אותו אירוע ממש. תשעה באב שהתקבע אחר כך אינו אף אחד משניהם.",src:"מלכים ב׳ כ״ה, ח · ירמיהו נ״ב, יב · זכריה ח׳, יט"},
+ {m:7,d:1,n:"יום תרועה",cat:"torah",when:"א׳ בתשרי",
+  t:"״שבתון זכרון תרועה מקרא קדש״. התורה אינה קוראת לו ראש השנה ואינה מסבירה על מה תוקעים. הוא חל במולד — ביום היחיד בחודש שבו הירח אינו נראה כלל.",src:"ויקרא כ״ג, כג–כה · במדבר כ״ט, א–ו"},
+ {m:7,d:3,n:"צום השביעי",cat:"fast",when:"בחודש השביעי",
+  t:"רצח גדליהו בן אחיקם במצפה, וקץ השארית היהודית בארץ אחרי החורבן. ירמיהו מציין ״בחדש השביעי״ ולא נוקב ביום.",src:"ירמיהו מ״א, א–ג · זכריה ח׳, יט"},
+ {m:7,d:10,n:"יום הכיפורים",cat:"torah",when:"י׳ בתשרי",
+  t:"היום היחיד בשנה שבו נכנס הכהן הגדול אל לפני ולפנים. שני שעירים, אחד לה׳ ואחד לעזאזל. וביובל — מיום זה נשמע השופר והקרקעות שבות לבעליהן.",src:"ויקרא ט״ז · ויקרא כ״ג, כו–לב · ויקרא כ״ה, ט"},
+ {m:7,d:15,n:"סוכות",cat:"torah",when:"ט״ו–כ״א בתשרי",
+  t:"חג האסיף, בירח מלא, בסיום שנת החקלאות. שבעה ימים בסוכות, וארבעת המינים. הרגל השלישי, והמפורט מכולם בקרבנותיו.",src:"ויקרא כ״ג, לג–מג · דברים ט״ז, יג–טו"},
+ {m:7,d:22,n:"שמיני עצרת",cat:"torah",when:"כ״ב בתשרי",
+  t:"יום שמיני נפרד, אחרי שבעת ימי סוכות. ״עצרת היא, כל מלאכת עבדה לא תעשו״.",src:"ויקרא כ״ג, לו · במדבר כ״ט, לה"},
+ {m:7,d:16,n:"הקהל",cat:"torah",when:"בסוכות, אחת לשבע שנים",
+  t:"במוצאי שנת השמיטה, בחג הסוכות, נקהל כל העם — אנשים, נשים, טף והגר — לשמוע את קריאת התורה מפי המלך. המועד היחיד שמחזורו שבע־שנתי.",src:"דברים ל״א, י–יג"},
+ {m:10,d:10,n:"צום העשירי",cat:"fast",when:"י׳ בטבת",
+  t:"היום שבו סמך נבוכדנאצר על ירושלים והחל המצור. יחזקאל, היושב בגולה, מצטווה לרשום את התאריך בעצם היום ההוא — לפני שהידיעה יכלה להגיע אליו.",src:"מלכים ב׳ כ״ה, א · יחזקאל כ״ד, א–ב · זכריה ח׳, יט"},
+ {m:12,d:14,n:"פורים",cat:"nvi",when:"י״ד–ט״ו באדר",
+  t:"המועד היחיד בתנ״ך שנקבע בידי אדם ולא בציווי מסיני — ״קימו וקבלו היהודים״. י״ד בפרזים, ט״ו בשושן ובערים המוקפות חומה.",src:"אסתר ט׳, כ–לב"}
+];
+const shabbat={n:"שבת",cat:"torah",when:"כל יום שביעי",
+ t:"המועד היחיד שאינו תלוי בירח, בשמש או בעונה — מחזור של שבעה ימים שרץ ברצף מבריאת העולם ואינו מסונכרן עם שום גרם שמים. ויקרא כ״ג פותח את רשימת המועדים דווקא בה.",
+ src:"בראשית ב׳, א–ג · שמות כ׳, ח–יא · ויקרא כ״ג, ג"};
+const rosh={n:"ראש חודש",cat:"moon",when:"א׳ בכל חודש",
+ t:"יום מסומן בפני עצמו, עם קרבן מוסף משלו. בימי שאול ודוד נערכה בו סעודה במשך יומיים — כי לא ידעו מראש אם החודש הקודם יימשך 29 יום או 30. הנביאים מונים אותו בנשימה אחת עם השבת.",
+ src:"במדבר כ״ח, יא–טו · שמואל א׳ כ׳, ה–כז · ישעיהו א׳, יג–יד · עמוס ח׳, ה"};
+
+/* ---------- month names table ---------- */
+document.getElementById("monthtab").innerHTML=months.map((m,i)=>`
+ <tr>
+   <td>${m.num}<span class="ref">חודש ${i+1}</span></td>
+   <td>${m.can?`${m.can}<span class="ref">${m.canRef}</span>`:"<span style='color:var(--none)'>—</span>"}</td>
+   <td>${m.bab}</td>
+   <td class="${m.inT?"yes":"no"}">${m.inT?`כן<span class="ref">${m.inT}</span>`:`לא<span class="ref">${m.note||"אינו מופיע בתנ״ך"}</span>`}</td>
+ </tr>`).join("");
+
+/* ---------- wheel ---------- */
+let naming="num", leap=false, showAgri=true, sel=null;
+const C=430, R_TICK_IN=322, R_TICK_MAX=30, R_MON_OUT=306, R_MON_IN=252, R_AG_OUT=244, R_AG_IN=198, R_FEST=176;
+const pol=(r,a)=>[C+r*Math.cos(a),C+r*Math.sin(a)];
+const ang=(i,N)=>(-90+i/N*360)*Math.PI/180;
+
+function monthLabel(i){
+  if(naming==="num") return months[i].num;
+  if(naming==="can") return months[i].can||months[i].num;
+  return months[i].bab;
+}
+function subLabel(i){
+  if(naming==="num") return months[i].bab;
+  if(naming==="can") return months[i].can?months[i].num:"אין שם כנעני";
+  return months[i].num;
+}
+function arcPath(r1,r2,a1,a2){
+  const [x1,y1]=pol(r2,a1),[x2,y2]=pol(r2,a2),[x3,y3]=pol(r1,a2),[x4,y4]=pol(r1,a1);
+  const laf=(a2-a1)>Math.PI?1:0;
+  return `M${x1},${y1} A${r2},${r2} 0 ${laf},1 ${x2},${y2} L${x3},${y3} A${r1},${r1} 0 ${laf},0 ${x4},${y4} Z`;
+}
+function drawWheel(){
+  const MN=leap?13:12;
+  const bounds=[];let acc=0;
+  for(let i=0;i<MN;i++){bounds.push(acc);acc+=(i%2===0?30:29);}
+  const N=acc;
+  let s="";
+  // moon ticks
+  for(let d=0;d<N;d++){
+    const ph=(d%SYN)/SYN, illum=(1-Math.cos(2*Math.PI*ph))/2;
+    const a=ang(d+0.5,N), h=3+R_TICK_MAX*illum;
+    const [x1,y1]=pol(R_TICK_IN,a),[x2,y2]=pol(R_TICK_IN+h,a);
+    s+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#C9A83B" stroke-opacity="${(0.18+0.82*illum).toFixed(2)}" stroke-width="2.4"/>`;
+  }
+  // month sectors
+  for(let i=0;i<MN;i++){
+    const st=bounds[i], en=(i===MN-1?N:bounds[i+1]);
+    const a1=ang(st,N),a2=ang(en,N);
+    const isLeapM=leap&&i===12;
+    s+=`<path d="${arcPath(R_MON_IN,R_MON_OUT,a1,a2)}" fill="${isLeapM?"#3A3320":(i%2?"#1D2333":"#222A3C")}" stroke="#0E121C" stroke-width="1.5"/>`;
+    const am=(a1+a2)/2;
+    const [tx,ty]=pol((R_MON_IN+R_MON_OUT)/2,am);
+    let deg=am*180/Math.PI+90; if(deg>90&&deg<270)deg-=180;
+    const nm=isLeapM?"חודש העיבור":monthLabel(i);
+    const sb=isLeapM?"אינו מתואר בתנ״ך":subLabel(i);
+    s+=`<g transform="translate(${tx.toFixed(1)},${ty.toFixed(1)}) rotate(${deg.toFixed(1)})">
+        <text class="mn" text-anchor="middle" y="-3">${nm}</text>
+        <text class="mn2" text-anchor="middle" y="14">${sb}</text></g>`;
+    // agri ring
+    if(showAgri&&!isLeapM){
+      s+=`<path d="${arcPath(R_AG_IN,R_AG_OUT,a1,a2)}" fill="#16271F" stroke="#0E121C" stroke-width="1.5"/>`;
+      const [ax,ay]=pol((R_AG_IN+R_AG_OUT)/2,am);
+      s+=`<g transform="translate(${ax.toFixed(1)},${ay.toFixed(1)}) rotate(${deg.toFixed(1)})">
+          <text class="agtxt" text-anchor="middle" y="4">${agri[i]}</text></g>`;
+    }
+    // rosh chodesh
+    if(!isLeapM){
+      const ar=ang(st+0.5,N);
+      const [rx,ry]=pol(R_FEST+8,ar);
+      s+=`<g class="fmark" data-k="rosh" tabindex="0" role="button" aria-label="ראש חודש">
+          <circle cx="${rx.toFixed(1)}" cy="${ry.toFixed(1)}" r="4.5" fill="#9A7B12"/></g>`;
+    }
+  }
+  // festivals
+  fests.forEach((f,idx)=>{
+    if(f.m-1>=MN)return;
+    const day=bounds[f.m-1]+f.d-1;
+    const a=ang(day+0.5,N);
+    const [x1,y1]=pol(R_FEST,a),[x2,y2]=pol(R_AG_IN-4,a);
+    const col=f.cat==="torah"?"#3D7FD1":"#E0703C";
+    s+=`<g class="fmark${sel===idx?" sel":""}" data-f="${idx}" tabindex="0" role="button" aria-label="${f.n}">
+        <line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${col}" stroke-width="2"/>
+        <circle class="fd" cx="${x1.toFixed(1)}" cy="${y1.toFixed(1)}" r="${sel===idx?11:8}" fill="${col}"/>
+        </g>`;
+  });
+  // hub
+  s+=`<circle cx="${C}" cy="${C}" r="${R_FEST-26}" fill="#0E121C" stroke="#2A3348"/>
+      <text class="hub1" x="${C}" y="${C-4}" text-anchor="middle">${N}</text>
+      <text class="hub2" x="${C}" y="${C+22}" text-anchor="middle">ימים · ${MN} חודשים</text>
+      <text class="hub2" x="${C}" y="${C+44}" text-anchor="middle">${leap?"שנה מעוברת":"פחות בכ־11 יום משנת החמה"}</text>`;
+  const w=document.getElementById("wheel");
+  w.setAttribute("viewBox","0 0 860 860");
+  w.innerHTML=s;
+  w.querySelectorAll(".fmark").forEach(g=>{
+    const act=()=>{
+      if(g.dataset.k==="rosh"){sel=null;showRead(rosh);}
+      else{sel=+g.dataset.f;showRead(fests[sel]);}
+      drawWheel();
+    };
+    g.addEventListener("click",act);
+    g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();act();}});
+  });
+}
+function showRead(f){
+  document.getElementById("readout").innerHTML=
+    `<h3>${f.n}</h3><div class="dt">${f.when}</div><p style="margin:0">${f.t}</p><div class="src">${f.src}</div>`;
+}
+showRead(shabbat);
+document.querySelectorAll("[data-nm]").forEach(b=>b.onclick=()=>{
+  naming=b.dataset.nm;
+  document.querySelectorAll("[data-nm]").forEach(o=>o.setAttribute("aria-pressed",o===b));
+  drawWheel();
+});
+document.getElementById("leap").onclick=e=>{leap=!leap;e.currentTarget.setAttribute("aria-pressed",leap);drawWheel();};
+document.getElementById("agri").onclick=e=>{showAgri=!showAgri;e.currentTarget.setAttribute("aria-pressed",showAgri);drawWheel();};
+drawWheel();
+
+/* ---------- month strip ---------- */
+(function(){
+  const W=1000,H=170,n=30,r=15,pad=26;
+  const step=(W-pad*2)/n;
+  let s="";
+  for(let d=0;d<n;d++){
+    const ph=d/SYN, k=(1-Math.cos(2*Math.PI*ph))/2, waxing=ph<0.5;
+    const cx=pad+step*(d+0.5), cy=76;
+    s+=`<circle cx="${cx.toFixed(1)}" cy="${cy}" r="${r}" fill="#1E2636"/>`;
+    const rx=r*Math.abs(1-2*k);
+    const so=waxing?1:0, si=(k<0.5)?(waxing?0:1):(waxing?1:0);
+    s+=`<path transform="translate(${cx.toFixed(1)},${cy})" d="M0,${-r} A${r},${r} 0 0,${so} 0,${r} A${rx.toFixed(2)},${r} 0 0,${si} 0,${-r} Z" fill="#E8D9A0"/>`;
+    s+=`<text x="${cx.toFixed(1)}" y="${cy+34}" text-anchor="middle">${d+1}</text>`;
+  }
+  const at=i=>pad+step*(i+0.5);
+  const marks=[[0,"מולד · ראש חודש"],[14,"ירח מלא · פסח וסוכות"],[28,"29 או 30?"]];
+  marks.forEach(([i,t])=>{
+    s+=`<line x1="${at(i).toFixed(1)}" y1="18" x2="${at(i).toFixed(1)}" y2="52" stroke="#C9A83B" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text class="big" x="${at(i).toFixed(1)}" y="13" text-anchor="middle">${t}</text>`;
+  });
+  s+=`<rect x="${(at(28)-step/2).toFixed(1)}" y="52" width="${(step*2).toFixed(1)}" height="48" fill="#C9A83B" fill-opacity=".10"/>
+      <text x="${at(29).toFixed(1)}" y="128" text-anchor="middle">היום שנקבע בעין</text>`;
+  const el=document.getElementById("mstrip");
+  el.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  el.innerHTML=s;
+})();
+
+/* ---------- festival list ---------- */
+const all=[shabbat,rosh,...fests];
+const flist=document.getElementById("flist");
+flist.innerHTML=all.map(f=>{
+  const cls=(f.cat==="torah")?"":"nvi";
+  return `<div class="fitem ${cls}" data-cat="${f.cat}">
+    <div class="when">${f.when.split(" · ")[0]}<small>${f.cat==="torah"?"מן התורה":f.cat==="fast"?"צום · נביאים":f.cat==="moon"?"מן התורה":"מן הכתובים"}</small></div>
+    <div><h3>${f.n}</h3><p>${f.t}</p><div class="src">${f.src}</div></div></div>`;
+}).join("");
+document.querySelectorAll(".fl").forEach(b=>b.onclick=()=>{
+  const f=b.dataset.f;
+  document.querySelectorAll(".fl").forEach(o=>o.setAttribute("aria-pressed",o===b));
+  document.querySelectorAll(".fitem").forEach(it=>{
+    const c=it.dataset.cat;
+    const show=f==="all"||(f==="torah"&&(c==="torah"||c==="moon"))||(f==="nvi"&&(c==="nvi"||c==="fast"))||(f==="fast"&&c==="fast");
+    it.classList.toggle("hide",!show);
+  });
+});
+
+/* ---------- jubilee ---------- */
+const jub=document.getElementById("jub");
+jub.innerHTML=Array.from({length:50},(_,i)=>{
+  const y=i+1, sh=y%7===0&&y!==49?false:false;
+  const isSh=y%7===0, isJ=y===50;
+  return `<button data-y="${y}" class="${isJ?"jb":isSh?"sh":""}">${y}</button>`;
+}).join("");
+jub.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+  const y=+b.dataset.y;
+  const o=document.getElementById("jubout");
+  if(y===50) o.innerHTML=`<b>שנת היובל.</b> נפתחת בשופר ביום הכיפורים. כל שדה חוזר לבעליו המקורי, וכל עבד עברי יוצא לחופשי. המכירה שלפניה מעולם לא הייתה מכירה אלא חכירה — ״כי לי הארץ, כי גרים ותושבים אתם עמדי״. <span style="font-size:13px">ויקרא כ״ה, ח–כד</span>`;
+  else if(y%7===0) o.innerHTML=`<b>שנת שמיטה.</b> ״שבת שבתון יהיה לארץ״ — לא זורעים, לא זומרים, ולא אוספים. הספיח הפקר לכל. בסוף שנה זו נשמטים גם החובות, ובחג הסוכות שאחריה מתקיים מעמד הקהל. <span style="font-size:13px">ויקרא כ״ה, א–ז · דברים ט״ו, א–יא</span>`;
+  else o.innerHTML=`<b>שנה ${y}.</b> שנת עבודה רגילה. ${7-(y%7)} שנים עד השמיטה הבאה${y<50?`, ו־${50-y} עד היובל`:""}.`;
+});
+</script>
+</body>
+</html>
