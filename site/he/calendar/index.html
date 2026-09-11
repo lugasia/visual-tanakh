@@ -21,14 +21,14 @@
 <meta name="twitter:title" content="354 יום בשנה. ולחודשים אין שמות.">
 <meta name="twitter:description" content="גלגל שנה ירחי, שמות החודשים וכל המועדים לפי מקורותיהם.">
 <meta name="twitter:image" content="https://lugasia.github.io/visual-tanakh/assets/og-calendar.png">
-<meta name="theme-color" content="#15384b">
+<meta name="theme-color" content="#F2F1ED">
 
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>לוח השנה של התנ״ך</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&amp;family=Heebo:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --bg:#F4F3EF; --card:#FFF; --ink:#181B21; --ink2:#5A6270; --rule:#D8D6CE;
@@ -36,8 +36,8 @@
   --night:#141A26;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Heebo",-apple-system,"Arial Hebrew",system-ui,sans-serif;font-size:17px;line-height:1.65}
-h1,h2,h3{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;line-height:1.15;margin:0;font-weight:700}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:17px;line-height:1.65}
+h1,h2,h3{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;line-height:1.15;margin:0;font-weight:700}
 p{margin:0 0 1em}
 .wrap{max-width:1020px;margin:0 auto;padding:0 20px}
 .num{font-variant-numeric:tabular-nums}
@@ -48,7 +48,7 @@ section{padding:44px 0;border-top:1px solid var(--rule)}
 section>h2{font-size:clamp(25px,4vw,35px);margin-bottom:8px}
 section>.lede{color:var(--ink2);max-width:64ch;margin-bottom:24px}
 
-.ctl{font-family:"Heebo";font-size:14.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:8px 14px;cursor:pointer;color:var(--ink)}
+.ctl{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:14.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:8px 14px;cursor:pointer;color:var(--ink)}
 .ctl[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
 .ctl:focus-visible{outline:2px solid var(--moon);outline-offset:2px}
 .controls{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px;align-items:center}
@@ -57,11 +57,11 @@ section>.lede{color:var(--ink2);max-width:64ch;margin-bottom:24px}
 
 /* wheel */
 .wheelbox{background:var(--night);border-radius:8px;padding:10px}
-svg.wheel{display:block;width:100%;height:auto;font-family:"Heebo"}
+svg.wheel{display:block;width:100%;height:auto;font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif}
 svg.wheel text{fill:#EDEAE0}
 svg.wheel .mn{font-size:17px;font-weight:500}
 svg.wheel .mn2{font-size:12.5px;fill:#9AA3B2}
-svg.wheel .hub1{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:52px;font-weight:900;fill:#EDEAE0}
+svg.wheel .hub1{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:52px;font-weight:900;fill:#EDEAE0}
 svg.wheel .hub2{font-size:14px;fill:#9AA3B2}
 svg.wheel .fmark{cursor:pointer}
 svg.wheel .fmark:hover circle.fd,svg.wheel .fmark.sel circle.fd{r:11}
@@ -78,7 +78,7 @@ svg.wheel .agtxt{font-size:11.5px;fill:#7FBFA4}
 /* month strip */
 .strip{background:var(--night);border-radius:8px;padding:18px 14px}
 svg.mstrip{display:block;width:100%;height:auto}
-svg.mstrip text{fill:#9AA3B2;font-family:"Heebo";font-size:11px}
+svg.mstrip text{fill:#9AA3B2;font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:11px}
 svg.mstrip text.big{fill:#EDEAE0;font-size:13px;font-weight:500}
 
 /* tables */
@@ -93,9 +93,9 @@ td .ref{display:block;font-size:12.5px;color:var(--ink2);font-weight:400}
 /* festival list */
 .flist{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
 .fitem{background:var(--card);padding:16px 18px;display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:start}
-.fitem .when{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:19px;font-weight:700;color:var(--torah)}
+.fitem .when{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:19px;font-weight:700;color:var(--torah)}
 .fitem.nvi .when{color:var(--nvi)}
-.fitem .when small{display:block;font-family:"Heebo";font-size:12.5px;font-weight:400;color:var(--ink2);margin-top:2px}
+.fitem .when small{display:block;font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:12.5px;font-weight:400;color:var(--ink2);margin-top:2px}
 .fitem h3{font-size:20px;margin-bottom:4px}
 .fitem p{font-size:15.5px;margin:0;color:var(--ink2)}
 .fitem .src{font-size:13px;color:var(--ink2);margin-top:7px}
@@ -110,7 +110,7 @@ td .ref{display:block;font-size:12.5px;color:var(--ink2);font-weight:400}
 
 /* jubilee */
 .jub{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;max-width:560px}
-.jub button{aspect-ratio:1;border:1px solid var(--rule);background:#fff;border-radius:4px;font-family:"Heebo";font-size:13px;cursor:pointer;color:var(--ink2);padding:0}
+.jub button{aspect-ratio:1;border:1px solid var(--rule);background:#fff;border-radius:4px;font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:13px;cursor:pointer;color:var(--ink2);padding:0}
 .jub button.sh{background:#E7F1EB;border-color:var(--agri);color:var(--agri);font-weight:600}
 .jub button.jb{background:var(--moon);border-color:var(--moon);color:#fff;font-weight:700}
 .jub button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
@@ -130,9 +130,9 @@ footer li{margin-bottom:9px;max-width:72ch}
   svg.wheel .agtxt{display:none}
 }
 </style>
-<style>.atlas-nav{display:flex;flex-wrap:wrap;gap:12px 24px;padding:16px max(20px,calc((100% - 1020px)/2));border-bottom:1px solid #D8D6CE;font:14px Heebo,Arial,sans-serif;background:#F4F3EF}.atlas-nav a{color:#181B21;text-decoration:none}.atlas-nav a:first-child{font-weight:700;margin-inline-end:auto}.atlas-nav a:hover{text-decoration:underline}.atlas-draft{padding:8px 20px;background:#eee8db;color:#514831;text-align:center;font:13px Heebo,Arial,sans-serif}</style><link href="../../assets/atlas.css" rel="stylesheet"/><link href="../../assets/logo-96.png" rel="icon" type="image/png"/><script defer="" src="../../assets/atlas.js"></script><link href="../../assets/share.css" rel="stylesheet"/>
+<style>.atlas-nav{display:flex;flex-wrap:wrap;gap:12px 24px;padding:16px max(20px,calc((100% - 1020px)/2));border-bottom:1px solid #D8D6CE;font:14px 'IBM Plex Sans Hebrew',system-ui,sans-serif;background:#F4F3EF}.atlas-nav a{color:#181B21;text-decoration:none}.atlas-nav a:first-child{font-weight:700;margin-inline-end:auto}.atlas-nav a:hover{text-decoration:underline}.atlas-draft{padding:8px 20px;background:#eee8db;color:#514831;text-align:center;font:13px 'IBM Plex Sans Hebrew',system-ui,sans-serif}</style><link href="../../assets/atlas.css" rel="stylesheet"/><link href="../../assets/logo-96.png" rel="icon" type="image/png"/><script defer="" src="../../assets/atlas.js"></script><link href="../../assets/share.css" rel="stylesheet"/>
 </head>
-<body class="chapter-page chapter-calendar"><a class="skip-link" href="#main-content">דלגו לתוכן</a><div class="mobile-bar"><a href="../../"><img alt="" height="44" src="../../assets/logo-96.png" width="44"/><span>התנ״ך הוויזואלי</span></a><button aria-controls="atlas-sidebar" aria-expanded="false" aria-label="פתיחת ניווט" id="menu-toggle"><span></span><span></span><span></span></button></div><div hidden="" id="nav-backdrop"></div><aside aria-label="ניווט ראשי" class="atlas-sidebar" id="atlas-sidebar"><div class="sidebar-top"><a class="atlas-brand" href="../../"><img alt="" height="130" src="../../assets/logo-320.png" width="150"/><strong>התנ״ך הוויזואלי</strong><span>מפות · תרשימים · מקורות</span></a><button aria-label="סגירת ניווט" class="nav-close" id="nav-close">×</button></div><nav aria-label="פרקי הספרייה" class="library-nav"><p class="nav-caption">הספרייה</p><a class="side-link" href="../../"><span class="side-index">⌂</span><span>הספרייה</span></a><a aria-current="page" class="side-link" href="../../he/calendar/"><span class="side-index">01</span><span>לוח השנה</span></a><a class="side-link" href="../../he/treasures/"><span class="side-index">02</span><span>הרכוש</span></a><a class="side-link" href="../../he/return/"><span class="side-index">03</span><span>שיבת ציון</span></a><a class="side-link" href="../../he/library/"><span class="side-index">04</span><span>הספרייה היהודית</span></a></nav><nav aria-label="תוכן העניינים" class="chapter-toc"><p class="nav-caption">בפרק הזה</p><a class="toc-link" href="#section-1">גלגל השנה</a><a class="toc-link" href="#section-2">איך נקבע חודש</a><a class="toc-link" href="#section-3">שמות החודשים</a><a class="toc-link" href="#section-4">המועדים</a><a class="toc-link" href="#section-5">מה שנוי במחלוקת</a><a class="toc-link" href="#section-6">המחזור הגדול — שמיטה ויובל</a><a class="toc-link" href="#chapter-notes">הערות ומקורות</a></nav><div class="sidebar-bottom"><a class="language-link" href="../../en/calendar/" lang="en">English<span aria-hidden="true">↗</span></a><p class="copyright">© 2026 כל הזכויות שמורות לאמיר לוגסי</p></div></aside>
+<body class="chapter-page chapter-calendar"><a class="skip-link" href="#main-content">דלגו לתוכן</a><div class="mobile-bar"><a href="../../"><img alt="" height="44" src="../../assets/logo-96.png" width="44"/><span>התנ״ך הוויזואלי</span></a><button aria-controls="atlas-sidebar" aria-expanded="false" aria-label="פתיחת ניווט" id="menu-toggle"><span></span><span></span><span></span></button></div><div hidden="" id="nav-backdrop"></div><aside aria-label="ניווט ראשי" class="atlas-sidebar" id="atlas-sidebar"><div class="sidebar-top"><a class="atlas-brand" href="../../"><img alt="" height="130" src="../../assets/logo-320.png" width="150"/><strong>התנ״ך הוויזואלי</strong><span>מפות · תרשימים · מקורות</span></a><button aria-label="סגירת ניווט" class="nav-close" id="nav-close">×</button></div><nav aria-label="פרקי הספרייה" class="library-nav"><p class="nav-caption">הספרייה</p><a class="side-link" href="../../"><span class="side-index">⌂</span><span>הספרייה</span></a><a aria-current="page" class="side-link" href="../../he/calendar/"><span class="side-index">01</span><span>לוח השנה</span></a><a class="side-link" href="../../he/treasures/"><span class="side-index">02</span><span>הרכוש</span></a><a class="side-link" href="../../he/return/"><span class="side-index">03</span><span>שיבת ציון</span></a><a class="side-link" href="../../he/library/"><span class="side-index">04</span><span>הספרייה היהודית</span></a><a class="side-link" href="../../he/nature/"><span class="side-index">05</span><span>היקום והטבע</span></a></nav><nav aria-label="תוכן העניינים" class="chapter-toc"><p class="nav-caption">בפרק הזה</p><a class="toc-link" href="#section-1">גלגל השנה</a><a class="toc-link" href="#section-2">איך נקבע חודש</a><a class="toc-link" href="#section-3">שמות החודשים</a><a class="toc-link" href="#section-4">המועדים</a><a class="toc-link" href="#section-5">מה שנוי במחלוקת</a><a class="toc-link" href="#section-6">המחזור הגדול — שמיטה ויובל</a><a class="toc-link" href="#chapter-notes">הערות ומקורות</a></nav><div class="sidebar-bottom"><a class="language-link" href="../../en/calendar/" lang="en">English<span aria-hidden="true">↗</span></a><p class="copyright">© 2026 כל הזכויות שמורות לאמיר לוגסי</p></div></aside>
 <main class="wrap atlas-main" id="main-content">
 <header class="mast"><p class="chapter-eyebrow">01 / זמן ומחזור</p>
 <h1>לוח השנה של התנ״ך</h1>
