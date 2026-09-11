@@ -46,6 +46,7 @@
   <div class="cosmos-hold"><svg class="cosmos-svg" id="cosmos" viewBox="0 0 720 640" role="img" aria-label="חתך אנכי של היקום התנ״כי"></svg></div>
   <div class="readout" id="cosmosOut"></div>
 </div>
+<div class="controls cosmos-key" id="cosmosKey"></div>
 </section>
 
 <section data-section="02" id="section-2">
@@ -135,105 +136,137 @@ function el(n,a,txt){const e=document.createElementNS(NS,n);
 
 function drawCosmos(){
   const svg=$("cosmos"); svg.textContent="";
-  const EARTH=Y(52), DOME_SPRING=EARTH, APEX=Y(14);
-  const L=60, R=660;
-  const domePath="M "+L+" "+DOME_SPRING+" Q 360 "+(APEX-120)+" "+R+" "+DOME_SPRING;
+  /* An engraved plate, not a diagram of boxes. One circle governs everything:
+     the vault is a true hemisphere over the disc of the earth, and every
+     opening and luminary is solved as an angle on it. */
+  const CX=360, GROUND=372, Rr=270, T=17;          // centre, horizon, radius, shell
+  const P=(a,r)=>[CX+(r||Rr)*Math.cos(a*Math.PI/180), GROUND-(r||Rr)*Math.sin(a*Math.PI/180)];
+  // sweep 0: in SVG's y-down space that is the flag which bulges upward.
+  // With sweep 1 the vault draws as a bowl — measured, not assumed.
+  const arc=(r,a0,a1)=>{const s0=P(a0,r),s1=P(a1,r);
+    return "M "+s0[0].toFixed(1)+" "+s0[1].toFixed(1)+" A "+r+" "+r+" 0 0 0 "+s1[0].toFixed(1)+" "+s1[1].toFixed(1);};
+
+  const defs=el("defs",{}); svg.appendChild(defs);
+  const pat=(id,w,h,inner)=>{const q=el("pattern",{id:id,width:w,height:h,patternUnits:"userSpaceOnUse"});
+    inner.forEach(n=>q.appendChild(n)); defs.appendChild(q); return "url(#"+id+")";};
+  const HATCH=pat("nhatch",7,7,[el("path",{d:"M0 7 L7 0",stroke:"#8A6E3C","stroke-width":.9,"stroke-opacity":".5"})]);
+  const DEEP =pat("ndeep",6,6,[el("path",{d:"M0 6 L6 0",stroke:"#C3BDAE","stroke-width":.8,"stroke-opacity":".22"}),
+                               el("path",{d:"M0 0 L6 6",stroke:"#C3BDAE","stroke-width":.8,"stroke-opacity":".22"})]);
+  const WAVE =pat("nwave",26,13,[el("path",{d:"M0 9 q 6.5 -7 13 0 q 6.5 7 13 0",
+                               stroke:"#2f7d96",fill:"none","stroke-width":1.3,"stroke-opacity":".55"})]);
+  const SHELL=pat("nshell",5,5,[el("path",{d:"M0 5 L5 0",stroke:"#5F594E","stroke-width":.7,"stroke-opacity":".35"})]);
 
   svg.appendChild(el("rect",{x:0,y:0,width:720,height:640,fill:"#EEEDE8"}));
+  // the volume the vault encloses
+  svg.appendChild(el("path",{d:arc(Rr-T/2,0,180)+" Z",fill:"#E7E6DF"}));
 
   const g=k=>{const x=el("g",{class:"layer "+k,tabindex:"0",role:"button"});svg.appendChild(x);return x;};
   const by=k=>D.cosmos.filter(c=>c.k===k);
+  const marks=[];
+  const mark=(gn,a_or_pt,r,idx)=>{const q=Array.isArray(a_or_pt)?a_or_pt:P(a_or_pt,r);
+    const m=el("g",{class:"cal"});
+    m.appendChild(el("circle",{cx:q[0],cy:q[1],r:11.5,fill:"#F6F5F1",stroke:"#121110","stroke-width":1.4}));
+    m.appendChild(el("text",{x:q[0],y:q[1]+4.2,"text-anchor":"middle",class:"caln"},
+      String(idx).padStart(2,"0")));
+    gn.appendChild(m); marks.push(m);};
 
-  // waters above the firmament
-  const wAbove=by("water")[0], gAbove=g("water");
-  gAbove.setAttribute("aria-label",wAbove.n);
-  gAbove.dataset.n=wAbove.n;
-  gAbove.appendChild(el("path",{d:"M 40 "+Y(3)+" L 680 "+Y(3)+" L 680 "+Y(11)+" Q 360 "+(Y(11)-46)+" 40 "+Y(11)+" Z",
-    fill:"#2f7d96","fill-opacity":".35"}));
-  for(let i=0;i<7;i++)gAbove.appendChild(el("path",
-    {d:"M "+(90+i*80)+" "+Y(7)+" q 18 -7 36 0",stroke:"#2f7d96",fill:"none","stroke-width":2,"stroke-opacity":".55"}));
-  gAbove.appendChild(el("text",{x:360,y:Y(5.4),"text-anchor":"middle"},wAbove.n));
+  const order=D.cosmos.map((c,i)=>({c,i}));
+  const idxOf=n=>order.find(o=>o.c.n===n).i+1;
+  const layer=(c,k)=>{const gn=g(k); gn.setAttribute("aria-label",c.n); gn.dataset.n=c.n; return gn;};
 
-  // the firmament: one solid band, the way a beaten sheet of metal would sit
-  const dome=by("dome")[0], gd=g("dome");
-  gd.setAttribute("aria-label",dome.n); gd.dataset.n=dome.n;
-  gd.appendChild(el("path",{d:domePath,fill:"none",stroke:"#8A8378","stroke-width":19,"stroke-linecap":"round"}));
-  gd.appendChild(el("path",{d:domePath,fill:"none",stroke:"#B5AEA1","stroke-width":9,"stroke-linecap":"round"}));
-  gd.appendChild(el("text",{x:360,y:Y(14)-4,"text-anchor":"middle"},dome.n));
+  /* ---- waters above, riding the outside of the vault ---- */
+  const wA=by("water")[0], gwA=layer(wA,"water");
+  gwA.appendChild(el("path",{d:arc(Rr+31,2,178)+" L "+P(178,Rr+9)[0].toFixed(1)+" "+P(178,Rr+9)[1].toFixed(1)+
+    " A "+(Rr+9)+" "+(Rr+9)+" 0 0 1 "+P(2,Rr+9)[0].toFixed(1)+" "+P(2,Rr+9)[1].toFixed(1)+" Z",
+    fill:"#2f7d96","fill-opacity":".3"}));
+  gwA.appendChild(el("path",{d:arc(Rr+20,6,174),fill:"none",stroke:"#2f7d96","stroke-opacity":".5",
+    "stroke-width":9,"stroke-dasharray":"13 9"}));
+  mark(gwA,90,Rr+20,idxOf(wA.n));
 
-  // The sluices are openings IN the dome, so they are cut into the same curve.
-  const onDome=t=>{const u=1-t,cy=APEX-120;
-    return [u*u*L + 2*u*t*360 + t*t*R, u*u*DOME_SPRING + 2*u*t*cy + t*t*DOME_SPRING];};
-  const gate=by("gate")[0], gg=g("gate");
-  gg.setAttribute("aria-label",gate.n); gg.dataset.n=gate.n;
-  [0.33,0.5,0.67].forEach(t=>{const q=onDome(t);
-    gg.appendChild(el("rect",{x:q[0]-13,y:q[1]-10,width:26,height:20,rx:1,fill:"#2A2622"}));
-    gg.appendChild(el("rect",{x:q[0]-13,y:q[1]-10,width:26,height:20,rx:1,fill:"none",
-      stroke:"#EFEADB","stroke-width":1.4}));});
-  const gq=onDome(0.67);
-  gg.appendChild(el("text",{x:gq[0],y:gq[1]-22,"text-anchor":"middle"},gate.n));
+  /* ---- the firmament: a beaten shell ---- */
+  const dm=by("dome")[0], gd=layer(dm,"dome");
+  gd.appendChild(el("path",{d:arc(Rr,0,180),fill:"none",stroke:"#7C7669","stroke-width":T}));
+  gd.appendChild(el("path",{d:arc(Rr,0,180),fill:"none",stroke:SHELL,"stroke-width":T}));
+  gd.appendChild(el("path",{d:arc(Rr+T/2-1.2,0,180),fill:"none",stroke:"#B9B2A3","stroke-width":2.4}));
+  gd.appendChild(el("path",{d:arc(Rr-T/2+1.2,0,180),fill:"none",stroke:"#565046","stroke-width":1.6}));
+  mark(gd,64,Rr-42,idxOf(dm.n));
 
-  // The luminaries are set INTO the firmament, so they are placed on the arc
-  // itself: every point below is evaluated on the same quadratic the dome draws.
-  const star=by("star")[0], gs=g("star");
-  gs.setAttribute("aria-label",star.n); gs.dataset.n=star.n;
-  const sun=onDome(0.15), moon=onDome(0.85);
-  gs.appendChild(el("circle",{cx:sun[0],cy:sun[1],r:15,fill:"#C9A14A",stroke:"#7A5F2C","stroke-width":1.5}));
-  gs.appendChild(el("path",{d:"M "+moon[0]+" "+(moon[1]-13)+" a 13 13 0 1 0 0 26 a 10 10 0 1 1 0 -26 z",
-    fill:"#EFEADB",stroke:"#6E6A61","stroke-width":1.5}));
-  [0.24,0.28,0.41,0.59,0.72,0.76].forEach(t=>{const q=onDome(t);
-    gs.appendChild(el("circle",{cx:q[0],cy:q[1],r:3.4,fill:"#F4F0E2",stroke:"#6E6A61","stroke-width":1.2}));});
-  gs.appendChild(el("text",{x:sun[0],y:sun[1]+34,"text-anchor":"middle"},star.n));
+  /* ---- sluices cut through the shell, square to its face ---- */
+  const gt=by("gate")[0], gg=layer(gt,"gate");
+  [42,90,138].forEach(a=>{const q=P(a,Rr);
+    const o=el("g",{transform:"translate("+q[0].toFixed(1)+" "+q[1].toFixed(1)+") rotate("+(90-a)+")"});
+    o.appendChild(el("rect",{x:-11,y:-T/2-1,width:22,height:T+2,fill:"#241C14"}));
+    o.appendChild(el("rect",{x:-11,y:-T/2-1,width:22,height:T+2,fill:"none",stroke:"#EFEADB","stroke-width":1.3}));
+    o.appendChild(el("line",{x1:0,y1:-T/2,x2:0,y2:T/2,stroke:"#EFEADB","stroke-width":.9,"stroke-opacity":".6"}));
+    gg.appendChild(o);});
+  mark(gg,42,Rr,idxOf(gt.n));
 
-  // the earth: a flat, unmoving slab
-  const land=by("land")[0], gl=g("land");
-  gl.setAttribute("aria-label",land.n); gl.dataset.n=land.n;
-  gl.appendChild(el("rect",{x:L,y:EARTH,width:R-L,height:20,fill:"#b99756"}));
-  gl.appendChild(el("rect",{x:L,y:EARTH+20,width:R-L,height:7,fill:"#8A6E3C"}));
-  gl.appendChild(el("text",{x:360,y:EARTH+15,"text-anchor":"middle",fill:"#2A2114"},land.n));
+  /* ---- luminaries, set into the shell ---- */
+  const st=by("star")[0], gs=layer(st,"star");
+  const sun=P(152,Rr), moon=P(28,Rr);
+  for(let i=0;i<12;i++){const a=i*30*Math.PI/180;
+    gs.appendChild(el("line",{x1:sun[0]+Math.cos(a)*15,y1:sun[1]+Math.sin(a)*15,
+      x2:sun[0]+Math.cos(a)*21,y2:sun[1]+Math.sin(a)*21,stroke:"#9A7B2E","stroke-width":1.5}));}
+  gs.appendChild(el("circle",{cx:sun[0],cy:sun[1],r:14,fill:"#C9A14A",stroke:"#7A5F2C","stroke-width":1.6}));
+  gs.appendChild(el("circle",{cx:moon[0],cy:moon[1],r:13.5,fill:"#3E3930"}));
+  gs.appendChild(el("path",{d:"M "+moon[0]+" "+(moon[1]-13)+" a 13 13 0 1 0 .1 26 a 10.5 10.5 0 1 1 -.1 -26 z",
+    fill:"#F6F3E7",stroke:"#3E3930","stroke-width":1.4}));
+  [62,74,106,118].forEach(a=>{const q=P(a,Rr);
+    gs.appendChild(el("path",{d:"M "+q[0]+" "+(q[1]-6.5)+" l 1.9 4.6 l 4.6 1.9 l -4.6 1.9 l -1.9 4.6 "+
+      "l -1.9 -4.6 l -4.6 -1.9 l 4.6 -1.9 z",fill:"#F6F3E7",stroke:"#5F594E","stroke-width":1}));});
+  mark(gs,152,Rr-34,idxOf(st.n));
 
-  // its ends and wings
-  const edge=by("edge")[0], ge=g("edge");
-  ge.setAttribute("aria-label",edge.n); ge.dataset.n=edge.n;
-  [[L,-1],[R,1]].forEach(e=>{
-    ge.appendChild(el("path",{d:"M "+e[0]+" "+EARTH+" l "+(e[1]*-26)+" -20 l 0 20 z",fill:"#b99756"}));
-    ge.appendChild(el("line",{x1:e[0],y1:EARTH-34,x2:e[0],y2:EARTH+30,stroke:"#8A6E3C","stroke-width":1.5,"stroke-dasharray":"3 3"}));
-  });
-  ge.appendChild(el("text",{x:L+72,y:EARTH+46,"text-anchor":"middle"},edge.n));
+  /* ---- the earth: a slab, with its fore-edge in section ---- */
+  const ld=by("land")[0], gl=layer(ld,"land");
+  const EL=62, ER=658;
+  gl.appendChild(el("rect",{x:EL,y:GROUND,width:ER-EL,height:22,fill:"#C0A068"}));
+  gl.appendChild(el("rect",{x:EL,y:GROUND,width:ER-EL,height:22,fill:HATCH}));
+  gl.appendChild(el("rect",{x:EL,y:GROUND+22,width:ER-EL,height:9,fill:"#8A6E3C"}));
+  gl.appendChild(el("line",{x1:EL,y1:GROUND,x2:ER,y2:GROUND,stroke:"#6E5730","stroke-width":1.6}));
+  mark(gl,[CX,GROUND+15],0,idxOf(ld.n));
 
-  // the pillars it stands on
-  const pil=by("pillar")[0], gp=g("pillar");
-  gp.setAttribute("aria-label",pil.n); gp.dataset.n=pil.n;
-  [232,488].forEach(x=>{
-    gp.appendChild(el("rect",{x:x-17,y:EARTH+27,width:34,height:Y(70)-EARTH-27,fill:"#A08A5E"}));
-    gp.appendChild(el("rect",{x:x-25,y:Y(70)-6,width:50,height:12,rx:2,fill:"#8A6E3C"}));
-  });
-  gp.appendChild(el("text",{x:360,y:Y(66),"text-anchor":"middle"},pil.n));
+  /* ---- its ends turn up: a rim, not a cliff ---- */
+  const ed=by("edge")[0], ge=layer(ed,"edge");
+  [[EL,1],[ER,-1]].forEach(e=>{
+    ge.appendChild(el("path",{d:"M "+e[0]+" "+(GROUND+22)+
+      " q "+(e[1]*-16)+" -6 "+(e[1]*-13)+" -30"+
+      " l "+(e[1]*13)+" 2"+
+      " q "+(e[1]*-3)+" 20 "+(e[1]*8)+" 28 z",
+      fill:"#C0A068",stroke:"#6E5730","stroke-width":1.3}));});
+  mark(ge,[EL+26,GROUND-34],0,idxOf(ed.n));
 
-  // the deep below
-  const wBelow=by("water")[1], gw=g("water");
-  gw.setAttribute("aria-label",wBelow.n); gw.dataset.n=wBelow.n;
-  gw.appendChild(el("rect",{x:40,y:Y(71),width:640,height:Y(11),fill:"#2f7d96","fill-opacity":".35"}));
-  for(let i=0;i<7;i++)gw.appendChild(el("path",
-    {d:"M "+(90+i*80)+" "+Y(76)+" q 18 7 36 0",stroke:"#2f7d96",fill:"none","stroke-width":2,"stroke-opacity":".55"}));
-  gw.appendChild(el("text",{x:360,y:Y(74.4),"text-anchor":"middle"},wBelow.n));
+  /* ---- the pillars it stands on ---- */
+  const pl=by("pillar")[0], gp=layer(pl,"pillar");
+  const PT=404, PB=488;
+  [252,468].forEach(x=>{
+    gp.appendChild(el("path",{d:"M "+(x-23)+" "+PT+" L "+(x+23)+" "+PT+" L "+(x+18)+" "+PB+
+      " L "+(x-18)+" "+PB+" Z",fill:"#B49A66",stroke:"#6E5730","stroke-width":1.2}));
+    gp.appendChild(el("path",{d:"M "+(x-23)+" "+PT+" L "+(x+23)+" "+PT+" L "+(x+18)+" "+PB+
+      " L "+(x-18)+" "+PB+" Z",fill:HATCH}));
+    gp.appendChild(el("rect",{x:x-30,y:PB,width:60,height:13,rx:1,fill:"#8A6E3C",stroke:"#6E5730","stroke-width":1.2}));
+    gp.appendChild(el("rect",{x:x-27,y:PT-7,width:54,height:8,rx:1,fill:"#8A6E3C"}));});
+  mark(gp,[CX,PT+42],0,idxOf(pl.n));
 
-  // Sheol, lowest of all
-  const und=by("under")[0], gu=g("under");
-  gu.setAttribute("aria-label",und.n); gu.dataset.n=und.n;
-  gu.appendChild(el("path",{d:"M 0 "+Y(83)+" L 720 "+Y(83)+" L 720 640 L 0 640 Z",fill:"#241C14","fill-opacity":".9"}));
-  gu.appendChild(el("text",{x:360,y:Y(89),"text-anchor":"middle",fill:"#D8D2C4"},und.n));
+  /* ---- the deep ---- */
+  const wB=by("water")[1], gwB=layer(wB,"water");
+  gwB.appendChild(el("rect",{x:0,y:508,width:720,height:66,fill:"#2f7d96","fill-opacity":".26"}));
+  gwB.appendChild(el("rect",{x:0,y:508,width:720,height:66,fill:WAVE}));
+  gwB.appendChild(el("line",{x1:0,y1:508,x2:720,y2:508,stroke:"#2f7d96","stroke-opacity":".55","stroke-width":1.6}));
+  mark(gwB,[CX,541],0,idxOf(wB.n));
 
-  // the two verses that get quoted as proof, marked as annotations
+  /* ---- Sheol, lowest of all ---- */
+  const un=by("under")[0], gu=layer(un,"under");
+  gu.appendChild(el("rect",{x:0,y:574,width:720,height:66,fill:"#241C14"}));
+  gu.appendChild(el("rect",{x:0,y:574,width:720,height:66,fill:DEEP}));
+  mark(gu,[CX,607],0,idxOf(un.n));
+
+  /* ---- and the two verses quoted as proof, marked as annotation ---- */
   by("claim").forEach((c,i)=>{
-    const gc=g("claim"); gc.setAttribute("aria-label",c.n); gc.dataset.n=c.n; gc.dataset.claim="1";
-    if(i===0){
-      gc.appendChild(el("ellipse",{cx:360,cy:EARTH+10,rx:316,ry:30}));
-      gc.appendChild(el("text",{x:360,y:EARTH-52,"text-anchor":"middle"},"״"+c.n+"״"));
-    }else{
-      gc.appendChild(el("rect",{x:186,y:EARTH+30,width:348,height:Y(70)-EARTH-28,rx:3}));
-      gc.appendChild(el("text",{x:360,y:Y(72.4),"text-anchor":"middle"},"״"+c.n+"״"));
-    }
+    const gc=layer(c,"claim"); gc.dataset.claim="1";
+    if(i===0){gc.appendChild(el("ellipse",{cx:CX,cy:GROUND+11,rx:(ER-EL)/2+8,ry:26}));
+      mark(gc,[ER-58,GROUND-30],0,idxOf(c.n));}
+    else{gc.appendChild(el("rect",{x:206,y:PT-14,width:308,height:PB-PT+34,rx:2}));
+      mark(gc,[CX-118,PB+8],0,idxOf(c.n));}
   });
 
   svg.querySelectorAll(".layer").forEach(n=>{
@@ -242,12 +275,25 @@ function drawCosmos(){
     n.addEventListener("focus",show);
     n.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();show();}});
   });
+  buildLegend();
   pickLayer(svg.querySelector(".layer.dome"));
+}
+
+/* The legend carries the names, so the plate itself stays clean. */
+function buildLegend(){
+  const host=$("cosmosKey"); if(!host)return;
+  host.innerHTML=D.cosmos.map((c,i)=>'<button class="ctl keyb" data-n="'+esc(c.n)+
+    '" aria-pressed="false"><span class="kn">'+String(i+1).padStart(2,"0")+"</span>"+esc(c.n)+"</button>").join("");
+  host.querySelectorAll(".keyb").forEach(b=>b.onclick=()=>{
+    const n=[...$("cosmos").querySelectorAll(".layer")].find(x=>x.dataset.n===b.dataset.n);
+    if(n){pickLayer(n);n.focus();}});
 }
 function pickLayer(node){
   if(!node)return;
   const c=D.cosmos.find(x=>x.n===node.dataset.n); if(!c)return;
   $("cosmos").querySelectorAll(".layer").forEach(n=>n.classList.toggle("sel",n===node));
+  const key=$("cosmosKey");
+  if(key)key.querySelectorAll(".keyb").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.n===c.n)));
   $("cosmosOut").innerHTML="<h3>"+esc(c.n)+"</h3><div>"+esc(c.d)+"</div><div class='src'>"+esc(c.s)+"</div>";
 }
 function claimMode(on){

@@ -397,3 +397,28 @@ html.reveal .collection .chapter.in{opacity:1;transform:none}
   .chapter-nature .conv select{width:100%}
   .chapter-nature .layer text{font-size:15px}}
 @media(prefers-reduced-motion:reduce){.chapter-nature .layer{transition:none}}
+
+/* A tag inside a table cell had a font-size and nothing else, so the source
+   ran straight into the name it belongs to. It is a second line, always. */
+.chapter-page td .tag{display:block;margin-top:4px;
+  font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.06em;color:var(--ink2);font-weight:400}
+.chapter-page .gapline .src,.chapter-nature .conv-out span,.chapter-nature .goods .src{
+  display:block;margin-top:8px;font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.08em;color:var(--ink2)}
+.chapter-nature .fitem .src{margin-top:10px}
+
+/* the plate's numbered callouts and its legend */
+.chapter-nature .cal circle{transition:fill .16s ease,stroke .16s ease}
+.chapter-nature .layer .caln{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;
+  font-weight:600;fill:#121110;stroke:none;paint-order:normal;letter-spacing:0}
+.chapter-nature .layer.sel .cal circle{fill:var(--gold);stroke:var(--gold)}
+.chapter-nature .layer.sel .cal .caln{fill:#F2F1ED}
+.chapter-nature .layer:hover .cal circle{fill:#121110}
+.chapter-nature .layer:hover .cal .caln{fill:#F2F1ED}
+.chapter-nature .cosmos-key{margin-top:14px;gap:6px}
+.chapter-nature .keyb{font-size:12.5px;padding:7px 11px;display:inline-flex;align-items:baseline;gap:8px}
+.chapter-nature .keyb .kn{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;
+  letter-spacing:.08em;color:var(--gold)}
+.chapter-nature .keyb[aria-pressed=true] .kn{color:#F2F1ED}
+.chapter-nature .cosmos-svg.claims .layer:not(.claim) .cal{opacity:.25}
