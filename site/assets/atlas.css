@@ -227,10 +227,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 .chapter-page .mpop{border-radius:2px;border-color:var(--line)}
 .chapter-page .readout{border-radius:0}
 /* the library wall: warm shelf, inked board */
-.chapter-library .spine{background:#EAE8E1;border-color:var(--line);border-radius:2px 2px 0 0;
-  font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-weight:500}
-.chapter-library .spine:hover{background:#E2DFD6}
-.chapter-library .board{background:var(--ink);height:3px;border-radius:0;box-shadow:none;margin-bottom:34px}
+
 .chapter-library .shelf h2{font-size:17px;letter-spacing:-.02em}
 .chapter-library .shelf .cnt{font-family:'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.12em}
 .chapter-library .scale{border-radius:2px}
@@ -262,3 +259,74 @@ html.reveal .collection .chapter.in{opacity:1;transform:none}
   .chapter-meta{flex-wrap:wrap;row-gap:4px}
   .ch-lang{margin-inline-start:0}
 }
+
+/* ==========================================================================
+   THE WALL · a bookcase, not a bar chart
+   The shelf colour in the data becomes the leather itself. Each volume gets
+   a curved sheen, gilt bands, its own tone and a slight lean; the board has
+   thickness and throws a shadow; the cavity behind the books is dark.
+   Light falls from the inline-start side, consistently, everywhere.
+   ========================================================================== */
+/* The case is exactly as long as the books standing in it. */
+.chapter-library .case{width:fit-content;max-width:100%;margin-bottom:40px}
+.chapter-library .row{position:relative;gap:3px;padding:22px 14px 0;align-items:flex-end;
+  background:
+    linear-gradient(180deg,#241C14e0 0%,#241C1400 54px),        /* cavity above */
+    linear-gradient(90deg,#00000038,#00000000 9%,#00000000 91%,#00000038), /* side walls */
+    #5E4930;
+  border:1px solid #3E3020;border-bottom:0;border-radius:2px 2px 0 0}
+
+.chapter-library .spine{
+  position:relative;border:0;border-radius:1.5px 1.5px 0 0;padding:13px 0 11px;
+  font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-weight:500;font-size:13.5px;
+  color:#F6F1E4;letter-spacing:.01em;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='70' height='70' filter='url(%23g)' opacity='.3'/%3E%3C/svg%3E"),
+    linear-gradient(90deg,
+      #00000070 0%, #0000003d 4%,        /* the shadowed edge where it meets the next book */
+      #ffffff12 11%, #ffffff05 17%,      /* a narrow catch of light, then matte */
+      #00000000 30%, #00000000 70%,
+      #00000012 83%, #00000047 96%, #00000070 100%),
+    var(--leather,#6B5334);
+  background-blend-mode:overlay,normal,normal;
+  filter:brightness(var(--tone,1));
+  transform:translateY(var(--sink,0)) rotate(var(--lean,0deg));
+  transform-origin:bottom center;
+  box-shadow:inset 0 2px 0 #ffffff2e,        /* the head of the book catches light */
+             inset 0 -3px 6px #00000047,     /* foot, in shadow */
+             2px 3px 5px #00000052;          /* contact shadow on the board */
+  transition:transform .16s ease,filter .16s ease,box-shadow .16s ease,opacity .2s ease}
+.chapter-library .spine .t{position:relative;z-index:2;
+  text-shadow:0 1px 1px #0000006b}
+/* gilt bands, the way a bound volume is tooled */
+/* Tooled bands at head and foot, and a sunken label panel behind the title. */
+.chapter-library .spine .gilt{position:absolute;inset-inline:2px;top:7%;bottom:7%;
+  pointer-events:none;z-index:1;
+  background:
+    linear-gradient(180deg,#EFD08A 0 1.5px,transparent 1.5px 5px,#EFD08A 5px 6px,transparent 6px)
+      top/100% 100% no-repeat,
+    linear-gradient(0deg,#EFD08A 0 1.5px,transparent 1.5px 5px,#EFD08A 5px 6px,transparent 6px)
+      bottom/100% 100% no-repeat;
+  opacity:.8}
+
+.chapter-library .spine:hover{transform:translateY(calc(var(--sink,0px) - 9px)) rotate(0deg);
+  filter:brightness(calc(var(--tone,1) * 1.14));
+  box-shadow:inset 0 2px 0 #ffffff3d,inset 0 -3px 6px #00000047,4px 8px 16px #0000005c;z-index:3}
+.chapter-library .spine.sel{background:
+    linear-gradient(90deg,#00000059,#0000002e 6%,#ffffff33 20%,#ffffff17 42%,#00000014 68%,#00000047 92%,#00000063),
+    var(--leather,#6B5334);
+  color:#FFF8E7;transform:translateY(calc(var(--sink,0px) - 9px)) rotate(0deg);
+  outline:1.5px solid #E4C88C;outline-offset:-1.5px;z-index:3}
+.chapter-library .spine.dim{opacity:.14;filter:grayscale(.7) brightness(.9)}
+
+/* the board: a real plank with thickness, and the shadow it throws */
+.chapter-library .board{height:15px;border-radius:0 0 2px 2px;margin-bottom:0;
+  background:linear-gradient(180deg,#C6A472 0,#A5834C 38%,#7A5D34 72%,#4A3A24 100%);
+  box-shadow:inset 0 1px 0 #F0DCB8,0 6px 14px #00000038;border:1px solid #4A3A24;border-top:0}
+
+.chapter-library .shelf{margin-bottom:0}
+.chapter-library .shelf h2{margin-bottom:2px}
+@media(prefers-reduced-motion:reduce){
+  .chapter-library .spine,.chapter-library .spine:hover{transition:none}}
+@media(max-width:600px){.chapter-library .row{padding:18px 10px 0}
+  .chapter-library .spine{font-size:12.5px}}

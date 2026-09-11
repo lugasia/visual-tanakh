@@ -106,12 +106,19 @@ function drawWall(){
   $("wall").innerHTML=shelves.map(sh=>{
     const list=books.filter(b=>b.s===sh);
     return '<section class="shelf"><h2>'+sh+'</h2><div class="cnt">'+list.length+
-      (list.length===1?" ספר":" ספרים")+'</div><div class="row">'+
+      (list.length===1?" ספר":" ספרים")+'</div><div class="case"><div class="row">'+
       list.map(b=>{
         const i=books.indexOf(b), h=hash(b.n);
+        // Real shelves are never uniform: each volume gets its own tone, a
+        // slight lean, and a band position, all derived from its own title.
+        const tone = 0.88 + (h % 9) * 0.03;           // 0.88 – 1.12
+        const lean = ((h >> 3) % 5 - 2) * 0.22;       // −0.44° – +0.44°
+        const sink = (h >> 6) % 3;                    // a couple of volumes sit back
         return '<button class="spine" type="button" data-i="'+i+'" aria-label="'+b.n+' · מדף '+b.s+'"'+
-          ' style="height:'+height(b.n,h)+'px;width:'+width(h)+'px;border-bottom-color:'+b.c+'">'+b.n+'</button>';
-      }).join("")+'</div><div class="board"></div></section>';
+          ' style="height:'+height(b.n,h)+'px;width:'+width(h)+'px;--leather:'+b.c+
+          ';--tone:'+tone.toFixed(2)+';--lean:'+lean.toFixed(2)+'deg;--sink:'+sink+'px">'+
+          '<span class="gilt"></span><span class="t">'+b.n+'</span></button>';
+      }).join("")+'</div><div class="board"></div></div></section>';
   }).join("");
   $("wall").querySelectorAll(".spine").forEach(s=>s.onclick=()=>openBook(+s.dataset.i,s));
 }
