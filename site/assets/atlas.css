@@ -333,3 +333,67 @@ html.reveal .collection .chapter.in{opacity:1;transform:none}
   .chapter-library .spine,.chapter-library .spine:hover{transition:none}}
 @media(max-width:600px){.chapter-library .row{padding:18px 10px 0}
   .chapter-library .spine{font-size:12.5px}}
+
+/* ==========================================================================
+   05 · היקום והטבע
+   The brief's block was written against the previous design system (serif
+   display, #f4f7f8 panels, 10px radii). Translated into the current one:
+   squared corners, the Archive tokens, mono for every figure and label.
+   ========================================================================== */
+.chapter-nature .cosmos-workspace{display:grid;
+  grid-template-columns:minmax(0,1.6fr) minmax(210px,1fr);gap:24px;align-items:start}
+.chapter-nature .cosmos-hold{background:#12111006;border:1px solid var(--line);border-radius:2px;padding:10px}
+.chapter-nature .cosmos-svg{display:block;width:100%;height:auto;border-radius:1px}
+.chapter-nature .layer{cursor:pointer;transition:opacity .16s ease}
+.chapter-nature .layer:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.chapter-nature .layer text{font:500 13px 'IBM Plex Sans Hebrew',system-ui,sans-serif;
+  fill:var(--navy);paint-order:stroke;stroke:#EEEDE8;stroke-width:3.5;stroke-linejoin:round}
+.chapter-nature .layer.sel text{fill:var(--gold)}
+.chapter-nature .layer.mute{opacity:.28}
+.chapter-nature .layer.claim rect,.chapter-nature .layer.claim ellipse,
+.chapter-nature .layer.claim path{stroke:var(--gold);stroke-dasharray:5 4;stroke-width:1.6;fill:none}
+.chapter-nature .layer.claim text{fill:var(--gold);font-size:12px}
+/* the toggle isolates the two quoted verses from the nine structural layers */
+.chapter-nature .cosmos-svg.claims .layer:not(.claim){opacity:.22}
+.chapter-nature .cosmos-svg.claims .layer.claim rect,
+.chapter-nature .cosmos-svg.claims .layer.claim ellipse{stroke-width:2.4}
+.chapter-nature .readout hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+
+/* the converter */
+.chapter-nature .conv{background:#12111006;border:1px solid var(--line);border-radius:2px;
+  padding:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.chapter-nature .conv input,.chapter-nature .conv select{
+  font:500 14px 'IBM Plex Sans Hebrew',system-ui,sans-serif;padding:10px 13px;
+  border:1px solid var(--line);border-radius:2px;background:#fff;color:var(--ink);min-height:42px}
+.chapter-nature .conv input{width:120px;font-variant-numeric:tabular-nums}
+.chapter-nature .conv-out{width:100%;margin-top:4px;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.chapter-nature .conv-out div{background:#fff;border:1px solid var(--line);border-radius:2px;padding:13px 15px}
+.chapter-nature .conv-out b{display:block;font-size:23px;font-weight:600;letter-spacing:-.03em;
+  color:var(--ink);font-variant-numeric:tabular-nums}
+.chapter-nature .conv-out span{display:block;margin-top:4px;
+  font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;color:var(--ink2)}
+.chapter-nature .conv-range{border-inline-start:2px solid var(--gold)!important;background:#C4341B0a!important}
+.chapter-nature .conv-range b{color:var(--gold)}
+
+/* confidence, shown beside every identification rather than in a footnote */
+.chapter-nature .conf{display:inline-block;font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:10px;letter-spacing:.1em;border-radius:2px;padding:3px 8px;
+  border:1px solid var(--line);color:var(--ink2);margin-inline-start:9px;vertical-align:middle}
+.chapter-nature .conf.c1{border-color:#3D6B52;color:#3D6B52}
+.chapter-nature .conf.c3{border-color:#B1653A;color:#B1653A}
+.chapter-nature .conf.c4{border-color:#9E4F66;color:#9E4F66}
+.chapter-nature .fitem .when{font-size:19px;font-weight:600;letter-spacing:-.02em}
+.chapter-nature .goods{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.chapter-nature .goods .v{font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.chapter-nature .goods .t{font-size:14px;line-height:1.7}
+.chapter-nature .hits{font-family:'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.1em}
+.chapter-nature .search{min-width:220px}
+.chapter-nature #engTl .ev{grid-template-columns:60px 1fr}
+.chapter-nature #engTl .yr{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;color:var(--gold)}
+
+@media(max-width:900px){.chapter-nature .cosmos-workspace{grid-template-columns:1fr}}
+@media(max-width:600px){.chapter-nature .conv input{width:100%}
+  .chapter-nature .conv select{width:100%}
+  .chapter-nature .layer text{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.chapter-nature .layer{transition:none}}
