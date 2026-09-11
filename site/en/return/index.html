@@ -111,7 +111,7 @@ th{text-align:start;font-weight:600;font-size:13.5px;color:var(--ink2);padding:1
 td{padding:9px 12px;border-bottom:1px solid var(--rule);font-size:15.5px;vertical-align:middle}
 tr:last-child td{border-bottom:0}
 tr.d td{background:#FDF3EE}
-td.n{font-variant-numeric:tabular-nums;white-space:nowrap;width:1%}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 .minibar{display:block;height:7px;border-radius:2px;margin-top:3px}
 .mb-e{background:var(--ezra)}
 .mb-n{background:var(--neh)}
@@ -174,6 +174,15 @@ footer li{margin-bottom:9px;max-width:72ch}
   .meter .inside{font-size:18px}
 }
 @media (prefers-reduced-motion:reduce){.meter .grown{transition:none}}
+
+table{table-layout:fixed}
+.chapter-page th,.chapter-page td{width:25%}
+/* atlas.css sets .chapter-page td, so the figures have to out-specify it */
+.chapter-page td.n{font-size:20px;font-weight:600;letter-spacing:-.025em;padding:12px 14px}
+.chapter-page td.n .minibar{height:10px;border-radius:1px;margin-top:6px}
+.chapter-page td.n .delta{font-size:20px}
+@media(max-width:640px){.chapter-page td.n,.chapter-page td.n .delta{font-size:16px}
+  .chapter-page td.n .minibar{height:8px}}
 </style>
 <style>.atlas-nav{display:flex;flex-wrap:wrap;gap:12px 24px;padding:16px max(20px,calc((100% - 1020px)/2));border-bottom:1px solid #D8D6CE;font:14px 'IBM Plex Sans Hebrew',system-ui,sans-serif;background:#F4F3EF}.atlas-nav a{color:#181B21;text-decoration:none}.atlas-nav a:first-child{font-weight:700;margin-inline-end:auto}.atlas-nav a:hover{text-decoration:underline}.atlas-draft{padding:8px 20px;background:#eee8db;color:#514831;text-align:center;font:13px 'IBM Plex Sans Hebrew',system-ui,sans-serif}</style><link href="../../assets/atlas.css" rel="stylesheet"/><link href="../../assets/logo-96.png" rel="icon" type="image/png"/><script defer="" src="../../assets/atlas.js"></script><link href="../../assets/share.css" rel="stylesheet"/>
 </head>
@@ -367,9 +376,15 @@ updateHero();
 /* ===== diverging gap chart ===== */
 const diffs=rows.map((r,i)=>({...r,i,d:r.x-r.e})).filter(r=>r.d!==0).sort((a,b)=>Math.abs(b.d)-Math.abs(a.d));
 (function drawGaps(){
+  // The label column sits on the reading side: right in Hebrew, left in English.
+  const RTL=document.documentElement.dir==="rtl";
   const LBL=250, PAD=14, RH=27, W=940, H=diffs.length*RH+46;
-  const cx=LBL+(W-LBL-PAD)/2;
-  const half=(W-LBL-PAD)/2-58;
+  const FIELD=W-LBL-PAD;                       // the width the bars live in
+  const F0=RTL?PAD:LBL;                        // where that field starts
+  const cx=F0+FIELD/2;
+  const half=FIELD/2-58;
+  const labelX=RTL?W-PAD:LBL-8;
+  const labelAnchor=RTL?"start":"end";         // in rtl, start is the right edge
   const maxD=Math.max(...diffs.map(r=>Math.abs(r.d)));
   let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"></svg>`;
   const el=document.getElementById("gaps");
@@ -384,8 +399,8 @@ const diffs=rows.map((r,i)=>({...r,i,d:r.x-r.e})).filter(r=>r.d!==0).sort((a,b)=
     const pos=r.d>0;
     const x=pos?cx:cx-w;
     out+=`<g data-i="${r.i}" tabindex="0" role="button" aria-label="${r.n}, difference ${r.d}">
-      <rect x="${LBL}" y="${y-13}" width="${W-LBL-PAD}" height="${RH-3}" fill="transparent"/>
-      <text class="lbl" x="${LBL-8}" y="${y+5}" text-anchor="end">${r.n}</text>
+      <rect x="${F0}" y="${y-13}" width="${FIELD}" height="${RH-3}" fill="transparent"/>
+      <text class="lbl" x="${labelX}" y="${y+5}" text-anchor="${labelAnchor}">${r.n}</text>
       <rect class="bar" x="${x}" y="${y-8}" width="${w}" height="16" rx="2" fill="${pos?"#C2521F":"#1D4F91"}"/>
       <text class="val" x="${pos?x+w+7:x-7}" y="${y+5}" text-anchor="${pos?"start":"end"}">${pos?"+":"−"}${fmt(Math.abs(r.d))}</text>
     </g>`;
