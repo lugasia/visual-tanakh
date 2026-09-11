@@ -1,3 +1,10 @@
+// Arm the reveal before anything paints, and only when this script can see it
+// through: no IntersectionObserver, or reduced motion, means no hiding at all.
+if (matchMedia('(prefers-reduced-motion: reduce)').matches === false
+    && 'IntersectionObserver' in window) {
+  document.documentElement.classList.add('reveal');
+}
+
 (() => {
   const panel=document.getElementById('atlas-sidebar');
   const toggle=document.getElementById('menu-toggle');
@@ -103,4 +110,44 @@
   bar.innerHTML='<span>'+copy[0]+'</span><a href="'+root+want+'/'+slug+'/">'+copy[1]+'</a>';
   const main=document.getElementById('main-content');
   if(main)main.insertBefore(bar,main.firstChild);
+})();
+
+// Reading line and section reveals. Both are decoration: if anything here is
+// unavailable the content must still be visible, so the reveal class is only
+// ever added, never relied upon to show something.
+(() => {
+
+  const line = document.createElement('div');
+  line.className = 'readline';
+  document.body.appendChild(line);
+  let ticking = false;
+  const draw = () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    line.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, scrollY / h) : 0) + ')';
+    ticking = false;
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(draw); } },
+                   { passive: true });
+  addEventListener('resize', draw, { passive: true });
+  draw();
+
+  if (!document.documentElement.classList.contains('reveal')) return;
+  const targets = [...document.querySelectorAll('.collection .chapter')];
+  if (!targets.length) { document.documentElement.classList.remove('reveal'); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.style.transitionDelay = (targets.indexOf(e.target) % 4) * 70 + 'ms';
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+  targets.forEach((t) => io.observe(t));
+  // Anything already on screen at load should not wait for a scroll.
+  requestAnimationFrame(() => targets.forEach((t) => {
+    const r = t.getBoundingClientRect();
+    if (r.top < innerHeight && r.bottom > 0) { t.classList.add('in'); io.unobserve(t); }
+  }));
+  // Safety net: whatever the observer does, nothing stays invisible.
+  setTimeout(() => targets.forEach((t) => t.classList.add('in')), 2500);
 })();

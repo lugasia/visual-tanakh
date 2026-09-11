@@ -1,6 +1,6 @@
 /* ===== סרגל שיתוף — התנ״ך הוויזואלי ===== */
 .share-block{margin:56px 0 8px;padding:26px 0 0;border-top:1px solid var(--rule,#d8d6ce)}
-.share-block h3{font-family:"Frank Ruhl Libre","Times New Roman",serif;font-size:22px;margin:0 0 4px;font-weight:700}
+.share-block h3{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:22px;margin:0 0 4px;font-weight:700}
 .share-block p{margin:0 0 16px;color:#5a6270;font-size:15.5px}
 .share-row{display:flex;flex-wrap:wrap;gap:9px}
 .share-row a,.share-row button{
@@ -8,7 +8,7 @@
   font-family:inherit;font-size:15px;font-weight:500;text-decoration:none;cursor:pointer;
   padding:11px 18px;border-radius:999px;border:1px solid #d8d6ce;background:#fff;color:#181b21;
   transition:transform .12s ease,border-color .12s ease}
-.share-row a:hover,.share-row button:hover{transform:translateY(-1px);border-color:#15384b}
+.share-row a:hover,.share-row button:hover{transform:translateY(-1px);border-color:#121110}
 .share-row a:focus-visible,.share-row button:focus-visible{outline:2px solid #9b7b41;outline-offset:2px}
 .share-row .wa{background:#128C7E;border-color:#128C7E;color:#fff}
 .share-row svg{width:17px;height:17px;fill:currentColor;flex:none}

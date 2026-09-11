@@ -21,14 +21,14 @@
 <meta name="twitter:title" content="42,360 — כך אומרת הרשימה. חיבור הפריטים נותן 29,818.">
 <meta name="twitter:description" content="עזרא ב׳ מול נחמיה ז׳: 21 שורות שחולקות, ומפת ערי המוצא.">
 <meta name="twitter:image" content="https://lugasia.github.io/visual-tanakh/assets/og-return.png">
-<meta name="theme-color" content="#15384b">
+<meta name="theme-color" content="#F2F1ED">
 
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>שיבת ציון — המפקד, הפערים, המפה</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&amp;family=Heebo:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --bg:#F4F3EF;
@@ -44,8 +44,8 @@
   --green:#2F7D5C;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Heebo",-apple-system,"Arial Hebrew",system-ui,sans-serif;font-size:17px;line-height:1.65;font-weight:400}
-h1,h2,h3{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;line-height:1.15;margin:0;font-weight:700}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:17px;line-height:1.65;font-weight:400}
+h1,h2,h3{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;line-height:1.15;margin:0;font-weight:700}
 p{margin:0 0 1em}
 .wrap{max-width:1020px;margin:0 auto;padding:0 20px}
 .num{font-variant-numeric:tabular-nums}
@@ -70,7 +70,7 @@ section > .lede{color:var(--ink2);max-width:62ch;margin-bottom:26px;font-size:17
 .meter .outside{position:absolute;top:50%;transform:translateY(-50%);inset-inline-end:14px;color:var(--gold);font-weight:600;font-size:16px}
 .mrow{display:flex;justify-content:space-between;font-size:14px;color:var(--ink2);margin-bottom:14px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.chip{border:1px solid var(--rule);background:#fff;border-radius:999px;padding:7px 14px;font-size:14.5px;cursor:pointer;font-family:"Heebo";color:var(--ink);display:flex;gap:8px;align-items:center}
+.chip{border:1px solid var(--rule);background:#fff;border-radius:999px;padding:7px 14px;font-size:14.5px;cursor:pointer;font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;color:var(--ink);display:flex;gap:8px;align-items:center}
 .chip .c{width:9px;height:9px;border-radius:50%;background:var(--rule)}
 .chip[aria-pressed="true"]{background:var(--ezra-soft);border-color:var(--ezra);color:var(--ezra);font-weight:500}
 .chip[aria-pressed="true"] .c{background:var(--ezra)}
@@ -78,11 +78,11 @@ body.nehmode .chip[aria-pressed="true"]{background:var(--neh-soft);border-color:
 body.nehmode .chip[aria-pressed="true"] .c{background:var(--neh)}
 .chip:focus-visible,.tab:focus-visible,.ctl:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .gapline{margin-top:22px;padding:14px 16px;background:#FBF6EC;border-inline-start:4px solid var(--gold);border-radius:4px;font-size:16px}
-.gapline b{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:21px}
+.gapline b{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:21px}
 
 /* source switch */
 .switch{display:inline-flex;border:1px solid var(--rule);border-radius:999px;overflow:hidden;background:#fff;margin-bottom:20px}
-.switch button{font-family:"Heebo";font-size:15px;padding:9px 20px;border:0;background:transparent;cursor:pointer;color:var(--ink2)}
+.switch button{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:15px;padding:9px 20px;border:0;background:transparent;cursor:pointer;color:var(--ink2)}
 .switch button[aria-pressed="true"]{background:var(--ezra);color:#fff;font-weight:500}
 .switch button.nb[aria-pressed="true"]{background:var(--neh)}
 
@@ -90,21 +90,21 @@ body.nehmode .chip[aria-pressed="true"] .c{background:var(--neh)}
 .gapwrap{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:20px 14px}
 .gapkey{display:flex;gap:20px;font-size:14.5px;color:var(--ink2);margin:0 6px 12px;flex-wrap:wrap}
 .gapkey i{display:inline-block;width:12px;height:12px;margin-inline-end:6px;vertical-align:-2px;border-radius:2px}
-svg.gaps{display:block;width:100%;height:auto;font-family:"Heebo"}
+svg.gaps{display:block;width:100%;height:auto;font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif}
 svg.gaps .lbl{font-size:13.5px;fill:var(--ink)}
-svg.gaps .val{font-size:13px;fill:var(--ink2);font-weight:500}
+svg.gaps .val{direction:ltr;font-size:13px;fill:var(--ink2);font-weight:500}
 svg.gaps rect.bar{cursor:pointer}
 svg.gaps g:hover rect.bar{opacity:.75}
 svg.gaps .axis{stroke:var(--ink2);stroke-width:1}
 svg.gaps .grid{stroke:var(--rule);stroke-width:1;stroke-dasharray:3 3}
-.gapdetail{margin-top:14px;padding:14px 16px;background:#F7F6F2;border-radius:4px;font-size:15.5px;min-height:56px;color:var(--ink2)}
+.gapdetail{margin-top:14px;padding:14px 16px;background:#F2F1ED;border-radius:4px;font-size:15.5px;min-height:56px;color:var(--ink2)}
 .gapdetail b{color:var(--ink)}
 
 /* --- table --- */
 .controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:16px}
-.ctl{font-family:"Heebo";font-size:14.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:8px 14px;cursor:pointer;color:var(--ink)}
+.ctl{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:14.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:8px 14px;cursor:pointer;color:var(--ink)}
 .ctl[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
-input.search{font-family:"Heebo";font-size:14.5px;padding:8px 12px;border:1px solid var(--rule);border-radius:4px;min-width:170px;background:#fff;color:var(--ink)}
+input.search{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:14.5px;padding:8px 12px;border:1px solid var(--rule);border-radius:4px;min-width:170px;background:#fff;color:var(--ink)}
 input.search:focus{outline:2px solid var(--gold);outline-offset:1px}
 table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
 th{text-align:start;font-weight:600;font-size:13.5px;color:var(--ink2);padding:11px 12px;border-bottom:2px solid var(--rule);background:#FAF9F6}
@@ -124,10 +124,10 @@ td .tag{font-size:12.5px;color:var(--ink2);display:block;font-weight:300}
 /* --- map --- */
 #map{height:520px;border:1px solid var(--rule);border-radius:6px;background:#C9DCE6;z-index:0}
 .maptabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.tab{font-family:"Heebo";font-size:14.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:8px 15px;cursor:pointer;color:var(--ink)}
+.tab{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:14.5px;background:#fff;border:1px solid var(--rule);border-radius:4px;padding:8px 15px;cursor:pointer;color:var(--ink)}
 .tab[aria-pressed="true"]{background:var(--ezra);color:#fff;border-color:var(--ezra)}
-.leaflet-popup-content{font-family:"Heebo";font-size:14.5px;direction:rtl;text-align:right;margin:12px 14px}
-.leaflet-popup-content h4{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:19px;margin:0 0 6px;font-weight:700}
+.leaflet-popup-content{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:14.5px;direction:rtl;text-align:right;margin:12px 14px}
+.leaflet-popup-content h4{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:19px;margin:0 0 6px;font-weight:700}
 .leaflet-popup-content .pn{display:flex;gap:14px;margin:6px 0}
 .leaflet-popup-content .pn span{font-variant-numeric:tabular-nums}
 .leaflet-popup-content .ref{color:#5A6270;font-size:12.5px;margin-top:6px}
@@ -139,25 +139,25 @@ td .tag{font-size:12.5px;color:var(--ink2);display:block;font-weight:300}
 .wavepanel h3{font-size:24px;margin-bottom:4px}
 .wavepanel .yr{color:var(--gold);font-weight:600;font-size:15px;margin-bottom:10px}
 .wavepanel .figs{display:flex;gap:28px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--rule)}
-.wavepanel .figs div .v{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:30px;font-weight:900;line-height:1}
+.wavepanel .figs div .v{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:30px;font-weight:900;line-height:1}
 .wavepanel .figs div .t{font-size:13.5px;color:var(--ink2)}
 
 /* --- goods --- */
 .goods{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
 .goods div{background:var(--card);padding:16px}
-.goods .v{font-family:"Frank Ruhl Libre","Times New Roman","David Libre",serif;font-size:27px;font-weight:700;line-height:1.1;color:var(--ezra)}
+.goods .v{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:27px;font-weight:700;line-height:1.1;color:var(--ezra)}
 .goods .t{font-size:14px;color:var(--ink2);margin-top:2px}
 
 .mapwrap{position:relative;overflow:hidden;background:#C9DCE6}
 .msvg{display:block;width:100%;height:100%;touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none}
 .msvg:active{cursor:grabbing}
-.mlab{font-family:"Heebo",-apple-system,"Arial Hebrew",Arial,sans-serif;font-size:13.5px;font-weight:500;fill:#181B21}
+.mlab{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif,-apple-system,"Arial Hebrew",Arial,sans-serif;font-size:13.5px;font-weight:500;fill:#181B21}
 .mzoom{position:absolute;top:10px;inset-inline-start:10px;display:flex;flex-direction:column;gap:5px;z-index:2}
 .mzoom button{width:36px;height:36px;border:1px solid #C9C4B6;background:#fff;border-radius:5px;font-size:20px;line-height:1;cursor:pointer;color:#181B21;font-family:inherit}
 .mzoom button:active{background:#EDEBE4}
 .mattr{position:absolute;bottom:5px;inset-inline-end:7px;font-size:11px;color:#5A6270;background:rgba(255,255,255,.8);padding:1px 7px;border-radius:3px;z-index:2}
 .mpop{position:absolute;z-index:3;background:#fff;border:1px solid #C9C4B6;border-radius:7px;box-shadow:0 5px 22px rgba(0,0,0,.18);padding:15px 17px 14px;max-width:270px;font-size:14.5px;line-height:1.6}
-.mpop h4{font-family:"Frank Ruhl Libre","Times New Roman",serif;font-size:18px;margin:0 0 5px;font-weight:700}
+.mpop h4{font-family:'IBM Plex Sans Hebrew',system-ui,sans-serif;font-size:18px;margin:0 0 5px;font-weight:700}
 .mpop .mx{position:absolute;top:3px;inset-inline-start:7px;border:0;background:transparent;font-size:20px;cursor:pointer;color:#5A6270;line-height:1;padding:2px 4px;font-family:inherit}
 .mpop .ref{color:#5A6270;font-size:12.5px;margin-top:7px}
 .mpop .pn{display:flex;gap:14px;margin:6px 0;font-variant-numeric:tabular-nums}
@@ -175,7 +175,7 @@ footer li{margin-bottom:9px;max-width:72ch}
 }
 @media (prefers-reduced-motion:reduce){.meter .grown{transition:none}}
 </style>
-<style>.atlas-nav{display:flex;flex-wrap:wrap;gap:12px 24px;padding:16px max(20px,calc((100% - 1020px)/2));border-bottom:1px solid #D8D6CE;font:14px Heebo,Arial,sans-serif;background:#F4F3EF}.atlas-nav a{color:#181B21;text-decoration:none}.atlas-nav a:first-child{font-weight:700;margin-inline-end:auto}.atlas-nav a:hover{text-decoration:underline}.atlas-draft{padding:8px 20px;background:#eee8db;color:#514831;text-align:center;font:13px Heebo,Arial,sans-serif}</style><link href="../../assets/atlas.css" rel="stylesheet"/><link href="../../assets/logo-96.png" rel="icon" type="image/png"/><script defer="" src="../../assets/atlas.js"></script><link href="../../assets/share.css" rel="stylesheet"/>
+<style>.atlas-nav{display:flex;flex-wrap:wrap;gap:12px 24px;padding:16px max(20px,calc((100% - 1020px)/2));border-bottom:1px solid #D8D6CE;font:14px 'IBM Plex Sans Hebrew',system-ui,sans-serif;background:#F4F3EF}.atlas-nav a{color:#181B21;text-decoration:none}.atlas-nav a:first-child{font-weight:700;margin-inline-end:auto}.atlas-nav a:hover{text-decoration:underline}.atlas-draft{padding:8px 20px;background:#eee8db;color:#514831;text-align:center;font:13px 'IBM Plex Sans Hebrew',system-ui,sans-serif}</style><link href="../../assets/atlas.css" rel="stylesheet"/><link href="../../assets/logo-96.png" rel="icon" type="image/png"/><script defer="" src="../../assets/atlas.js"></script><link href="../../assets/share.css" rel="stylesheet"/>
 </head>
 <body class="chapter-page chapter-return"><a class="skip-link" href="#main-content">דלגו לתוכן</a><div class="mobile-bar"><a href="../../"><img alt="" height="44" src="../../assets/logo-96.png" width="44"/><span>התנ״ך הוויזואלי</span></a><button aria-controls="atlas-sidebar" aria-expanded="false" aria-label="פתיחת ניווט" id="menu-toggle"><span></span><span></span><span></span></button></div><div hidden="" id="nav-backdrop"></div><aside aria-label="ניווט ראשי" class="atlas-sidebar" id="atlas-sidebar"><div class="sidebar-top"><a class="atlas-brand" href="../../"><img alt="" height="130" src="../../assets/logo-320.png" width="150"/><strong>התנ״ך הוויזואלי</strong><span>מפות · תרשימים · מקורות</span></a><button aria-label="סגירת ניווט" class="nav-close" id="nav-close">×</button></div><nav aria-label="פרקי הספרייה" class="library-nav"><p class="nav-caption">הספרייה</p><a class="side-link" href="../../"><span class="side-index">⌂</span><span>הספרייה</span></a><a class="side-link" href="../../he/calendar/"><span class="side-index">01</span><span>לוח השנה</span></a><a class="side-link" href="../../he/treasures/"><span class="side-index">02</span><span>הרכוש</span></a><a aria-current="page" class="side-link" href="../../he/return/"><span class="side-index">03</span><span>שיבת ציון</span></a><a class="side-link" href="../../he/library/"><span class="side-index">04</span><span>הספרייה היהודית</span></a></nav><nav aria-label="תוכן העניינים" class="chapter-toc"><p class="nav-caption">בפרק הזה</p><a class="toc-link" href="#section-1">הסך שלא נובע מהפירוט</a><a class="toc-link" href="#section-2">איפה בדיוק הן חולקות</a><a class="toc-link" href="#section-3">הרשימה המלאה</a><a class="toc-link" href="#section-4">המפה</a><a class="toc-link" href="#section-5">שלושה גלים</a><a class="toc-link" href="#section-6">מה הביאו איתם</a><a class="toc-link" href="#chapter-notes">הערות ומקורות</a></nav><div class="sidebar-bottom"><a class="language-link" href="../../en/return/" lang="en">English<span aria-hidden="true">↗</span></a><p class="copyright">© 2026 כל הזכויות שמורות לאמיר לוגסי</p></div></aside>
 <main class="wrap atlas-main" id="main-content">
